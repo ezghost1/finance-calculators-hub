@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Percentage Calculator | Free Percent Calculator</title><meta name="description" content="Free percentage calculator. Calculate percentages, percent increase/decrease, and percentage of a number instantly."><meta name="keywords" content="percentage calculator, percent calculator, percentage increase, percentage decrease, percent of number"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/percentage-calculator"><script async src="https://www.googletagmanager.com/gtag/js?id=G-E19EPYJKRK"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-E19EPYJKRK');</script><script src="https://cdn.tailwindcss.com"></script><style>.gradient-bg{background:linear-gradient(135deg,#06b6d4 0%,#0891b2 100%)}</style></head>
+<body class="bg-gray-50 min-h-screen"><header class="gradient-bg text-white py-4 shadow-lg"><div class="container mx-auto px-4 flex items-center justify-between"><a href="/" class="flex items-center space-x-2"><div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"><span class="text-2xl font-bold">$</span></div><div><div class="text-xl font-bold">Finance Calculators Hub</div></div></a></div></header>
+<main class="container mx-auto px-4 py-8 max-w-4xl"><nav class="mb-4 text-sm"><a href="/" class="text-cyan-600 hover:underline">Home</a> <span class="text-gray-400">›</span> <span class="text-gray-600">Percentage Calculator</span></nav>
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Percentage Calculator</h1>
+<div class="grid md:grid-cols-2 gap-6 mb-8">
+<div class="bg-white rounded-xl shadow-lg p-6">
+<h2 class="font-bold text-gray-800 mb-4">What is X% of Y?</h2>
+<form id="calc1" class="space-y-3"><input type="number" id="p1" placeholder="Percentage" class="w-full px-4 py-2 border rounded-lg"><input type="number" id="n1" placeholder="Number" class="w-full px-4 py-2 border rounded-lg"><button type="submit" class="w-full gradient-bg text-white py-2 rounded-lg">Calculate</button></form>
+<div id="r1" class="mt-4 text-lg font-semibold text-cyan-600"></div>
+</div>
+<div class="bg-white rounded-xl shadow-lg p-6">
+<h2 class="font-bold text-gray-800 mb-4">X is what % of Y?</h2>
+<form id="calc2" class="space-y-3"><input type="number" id="p2" placeholder="Number" class="w-full px-4 py-2 border rounded-lg"><input type="number" id="n2" placeholder="Total" class="w-full px-4 py-2 border rounded-lg"><button type="submit" class="w-full gradient-bg text-white py-2 rounded-lg">Calculate</button></form>
+<div id="r2" class="mt-4 text-lg font-semibold text-cyan-600"></div>
+</div>
+<div class="bg-white rounded-xl shadow-lg p-6">
+<h2 class="font-bold text-gray-800 mb-4">Percentage Increase/Decrease</h2>
+<form id="calc3" class="space-y-3"><input type="number" id="old3" placeholder="Old Value" class="w-full px-4 py-2 border rounded-lg"><input type="number" id="new3" placeholder="New Value" class="w-full px-4 py-2 border rounded-lg"><button type="submit" class="w-full gradient-bg text-white py-2 rounded-lg">Calculate</button></form>
+<div id="r3" class="mt-4 text-lg font-semibold text-cyan-600"></div>
+</div>
+<div class="bg-white rounded-xl shadow-lg p-6">
+<h2 class="font-bold text-gray-800 mb-4">Add/Subtract Percentage</h2>
+<form id="calc4" class="space-y-3"><input type="number" id="num4" placeholder="Number" class="w-full px-4 py-2 border rounded-lg"><input type="number" id="perc4" placeholder="Percentage" class="w-full px-4 py-2 border rounded-lg"><select id="op4" class="w-full px-4 py-2 border rounded-lg bg-white"><option value="add">Add %</option><option value="sub">Subtract %</option></select><button type="submit" class="w-full gradient-bg text-white py-2 rounded-lg">Calculate</button></form>
+<div id="r4" class="mt-4 text-lg font-semibold text-cyan-600"></div>
+</div>
+</div>
+<section class="mt-8 prose prose-lg max-w-none"><h2 class="text-2xl font-bold text-gray-800 mb-4">How to Calculate Percentages</h2><p class="text-gray-600 mb-4">Percentages are used everywhere - discounts, tips, taxes, and more. Here's how to calculate them:</p><ul class="list-disc pl-6 text-gray-600 space-y-2"><li><strong>Percentage of a number:</strong> (Percentage ÷ 100) × Number</li><li><strong>What percent:</strong> (Part ÷ Whole) × 100</li><li><strong>Percentage change:</strong> ((New - Old) ÷ Old) × 100</li></ul></section>
+</main>
+<footer class="bg-gray-800 text-gray-300 py-8 mt-12"><div class="container mx-auto px-4 text-center"><p>© 2024 Finance Calculators Hub</p></div></footer>
+<script>document.getElementById('calc1').addEventListener('submit',function(e){e.preventDefault();const p=parseFloat(document.getElementById('p1').value)||0;const n=parseFloat(document.getElementById('n1').value)||0;document.getElementById('r1').textContent=(n*p/100).toFixed(2);});document.getElementById('calc2').addEventListener('submit',function(e){e.preventDefault();const p=parseFloat(document.getElementById('p2').value)||0;const n=parseFloat(document.getElementById('n2').value)||0;document.getElementById('r2').textContent=(p/n*100).toFixed(2)+'%';});document.getElementById('calc3').addEventListener('submit',function(e){e.preventDefault();const old=parseFloat(document.getElementById('old3').value)||0;const newv=parseFloat(document.getElementById('new3').value)||0;const change=((newv-old)/old*100).toFixed(2);document.getElementById('r3').textContent=(change>0?'+':'')+change+'% '+(change>0?'increase':'decrease');});document.getElementById('calc4').addEventListener('submit',function(e){e.preventDefault();const num=parseFloat(document.getElementById('num4').value)||0;const perc=parseFloat(document.getElementById('perc4').value)||0;const op=document.getElementById('op4').value;const result=op==='add'?num*(1+perc/100):num*(1-perc/100);document.getElementById('r4').textContent=result.toFixed(2);});</script>
+</body></html>
