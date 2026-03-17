@@ -30,7 +30,8 @@
             <p class="text-xl text-purple-100 mb-6">Financial, Health, Math & Everyday Tools</p>
             <p class="text-purple-200 mb-6">No signup • No ads • No tracking</p>
             <div class="max-w-xl mx-auto">
-                <input type="text" id="search" placeholder="Search calculators..." class="w-full px-6 py-4 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300" onkeyup="filterCalculators(this.value)">
+                <input type="text" id="search" placeholder="Search calculators... (press / to focus)" class="w-full px-6 py-4 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300" onkeyup="filterCalculators(this.value)">
+                <p id="search-results" class="text-purple-200 mt-2 text-sm hidden"></p>
             </div>
         </div>
     </section>
@@ -164,12 +165,78 @@
     <script>
         function filterCalculators(q) {
             const sections = ['financial', 'debt', 'health', 'math', 'everyday'];
+            let totalVisible = 0;
+            let firstVisibleSection = null;
+            
             sections.forEach(s => {
-                document.querySelectorAll('#' + s + ' a').forEach(c => {
-                    c.style.display = c.textContent.toLowerCase().includes(q.toLowerCase()) || !q ? '' : 'none';
+                const section = document.getElementById(s);
+                const cards = section.querySelectorAll('a');
+                let visibleInSection = 0;
+                
+                cards.forEach(c => {
+                    const match = c.textContent.toLowerCase().includes(q.toLowerCase());
+                    c.style.display = match || !q ? '' : 'none';
+                    if (match || !q) visibleInSection++;
                 });
+                
+                // Hide empty sections when searching
+                const sectionParent = section.closest('section');
+                if (q && visibleInSection === 0) {
+                    sectionParent.style.display = 'none';
+                } else {
+                    sectionParent.style.display = '';
+                    if (!firstVisibleSection && visibleInSection > 0) {
+                        firstVisibleSection = sectionParent;
+                    }
+                }
+                
+                totalVisible += visibleInSection;
             });
+            
+            // Update count
+            const countEl = document.getElementById('total-count');
+            if (countEl) {
+                countEl.textContent = totalVisible + '+';
+            }
+            
+            // Show/hide results message
+            const resultsEl = document.getElementById('search-results');
+            if (q) {
+                if (totalVisible > 0) {
+                    resultsEl.textContent = `Found ${totalVisible} calculator${totalVisible === 1 ? '' : 's'} matching "${q}"`;
+                    resultsEl.className = 'text-purple-200 mt-2 text-sm';
+                } else {
+                    resultsEl.textContent = `No calculators found for "${q}". Try a different search.`;
+                    resultsEl.className = 'text-red-300 mt-2 text-sm';
+                }
+            } else {
+                resultsEl.textContent = '';
+                resultsEl.className = 'hidden';
+            }
+            
+            // Scroll to first visible section
+            if (q && firstVisibleSection) {
+                setTimeout(() => {
+                    firstVisibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
         }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+                e.preventDefault();
+                document.getElementById('search').focus();
+            }
+            if (e.key === 'Escape') {
+                const search = document.getElementById('search');
+                if (search.value) {
+                    search.value = '';
+                    filterCalculators('');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
     </script>
 </body>
 </html>
