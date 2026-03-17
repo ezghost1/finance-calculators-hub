@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator | Free Home Loan Calculator</title>
+    <meta name="description" content="Free mortgage calculator. Calculate monthly payments, total interest, and amortization for your home loan. Compare rates and terms.">
+    <meta name="keywords" content="mortgage calculator, home loan calculator, mortgage payment calculator, amortization calculator, home mortgage">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/mortgage-calculator">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta property="og:title" content="Mortgage Calculator | Free Home Loan Calculator">
+    <meta property="og:type" content="website">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E19EPYJKRK"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E19EPYJKRK');</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.gradient-bg{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-2"><div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"><span class="text-2xl font-bold">$</span></div><div><div class="text-xl font-bold">Finance Calculators Hub</div><div class="text-xs text-purple-200">Free tools for smart investors</div></div></a>
+            <nav class="hidden md:flex items-center space-x-4"><a href="#calculators" class="hover:text-purple-200">Calculators</a><a href="/investment-tips" class="hover:text-purple-200">Guides</a></nav>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <nav class="mb-4 text-sm"><a href="/" class="text-purple-600 hover:underline">Home</a> <span class="text-gray-400">›</span> <span class="text-gray-600">Mortgage Calculator</span></nav>
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Mortgage Calculator</h1>
+            <form id="calculator-form" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="block text-gray-700 font-semibold mb-1">Home Price ($)</label><input type="number" id="price" placeholder="400000" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required></div>
+                    <div><label class="block text-gray-700 font-semibold mb-1">Down Payment ($)</label><input type="number" id="down" placeholder="80000" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div><label class="block text-gray-700 font-semibold mb-1">Interest Rate (%)</label><input type="number" id="rate" placeholder="6.5" min="0" max="20" step="0.01" class="w-full px-4 py-3 border border-gray-300 rounded-lg" required></div>
+                    <div><label class="block text-gray-700 font-semibold mb-1">Loan Term (years)</label><select id="term" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white"><option value="30">30 years</option><option value="20">20 years</option><option value="15">15 years</option><option value="10">10 years</option></select></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div><label class="block text-gray-700 font-semibold mb-1">Property Tax ($/year)</label><input type="number" id="tax" placeholder="4800" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg"></div>
+                    <div><label class="block text-gray-700 font-semibold mb-1">Home Insurance ($/year)</label><input type="number" id="insurance" placeholder="1200" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg"></div>
+                    <div><label class="block text-gray-700 font-semibold mb-1">HOA Fees ($/month)</label><input type="number" id="hoa" placeholder="0" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg"></div>
+                </div>
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-4 rounded-lg hover:opacity-90 transition">Calculate</button>
+            </form>
+        </div>
+        <div id="results" class="hidden">
+            <div class="bg-purple-50 border-2 border-purple-500 rounded-xl p-6 mb-6"><h3 class="font-bold text-purple-800 mb-2">Monthly Payment</h3><p id="monthly" class="text-4xl font-bold text-purple-600">$0</p><p id="breakdown" class="text-purple-700 text-sm mt-2"></p></div>
+            <div class="grid md:grid-cols-4 gap-4 mb-6"><div class="bg-white rounded-xl shadow p-4 text-center"><p class="text-gray-500 text-sm">Principal & Interest</p><p id="pi" class="text-xl font-bold">$0</p></div><div class="bg-white rounded-xl shadow p-4 text-center"><p class="text-gray-500 text-sm">Property Tax</p><p id="tax-mo" class="text-xl font-bold">$0</p></div><div class="bg-white rounded-xl shadow p-4 text-center"><p class="text-gray-500 text-sm">Insurance</p><p id="ins-mo" class="text-xl font-bold">$0</p></div><div class="bg-white rounded-xl shadow p-4 text-center"><p class="text-gray-500 text-sm">HOA</p><p id="hoa-mo" class="text-xl font-bold">$0</p></div></div>
+            <div class="bg-white rounded-xl shadow p-6 mb-6"><h2 class="font-bold text-gray-800 mb-4">Loan Summary</h2><div class="space-y-2"><div class="flex justify-between py-2 border-b"><span class="text-gray-600">Loan Amount</span><span id="loan-amount" class="font-semibold">$0</span></div><div class="flex justify-between py-2 border-b"><span class="text-gray-600">Total Interest</span><span id="total-interest" class="font-semibold text-red-600">$0</span></div><div class="flex justify-between py-2 border-b"><span class="text-gray-600">Total Cost</span><span id="total-cost" class="font-semibold">$0</span></div><div class="flex justify-between py-2"><span class="text-gray-600">Payoff Date</span><span id="payoff" class="font-semibold"></span></div></div></div>
+        </div>
+        <section class="mt-8 prose prose-lg max-w-none"><h2 class="text-2xl font-bold text-gray-800 mb-4">How to Use This Calculator</h2><p class="text-gray-600 mb-4">Enter your home price, down payment, and interest rate to see your monthly mortgage payment. Include property tax, insurance, and HOA for a complete picture.</p><h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">What's Included</h3><ul class="list-disc pl-6 text-gray-600"><li><strong>Principal & Interest:</strong> The core mortgage payment</li><li><strong>Property Tax:</strong> Annual tax divided by 12</li><li><strong>Home Insurance:</strong> Annual premium divided by 12</li><li><strong>HOA:</strong> Monthly homeowners association fees</li></ul></section>
+        <section class="mt-8"><h2 class="text-2xl font-bold text-gray-800 mb-4">Related Calculators</h2><div class="grid md:grid-cols-4 gap-4"><a href="/loan-calculator" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition"><h3 class="font-semibold">Loan Calculator</h3><p class="text-gray-500 text-sm">General loans</p></a><a href="/compound-interest" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition"><h3 class="font-semibold">Compound Interest</h3><p class="text-gray-500 text-sm">Investment growth</p></a><a href="/savings-goal" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition"><h3 class="font-semibold">Savings Goal</h3><p class="text-gray-500 text-sm">Down payment savings</p></a><a href="/affordability-calculator" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition"><h3 class="font-semibold">Affordability</h3><p class="text-gray-500 text-sm">How much house?</p></a></div></section>
+    </main>
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-12"><div class="container mx-auto px-4 text-center"><p class="mb-2">© 2024 Finance Calculators Hub. Free tools for smart investors.</p></div></footer>
+    <script>document.getElementById('calculator-form').addEventListener('submit',function(e){e.preventDefault();const price=parseFloat(document.getElementById('price').value)||0;const down=parseFloat(document.getElementById('down').value)||0;const rate=parseFloat(document.getElementById('rate').value)/100/12||0;const term=parseInt(document.getElementById('term').value)*12;const tax=parseFloat(document.getElementById('tax').value)/12||0;const insurance=parseFloat(document.getElementById('insurance').value)/12||0;const hoa=parseFloat(document.getElementById('hoa').value)||0;const loan=price-down;const pi=rate===0?loan/term:loan*(rate*Math.pow(1+rate,term))/(Math.pow(1+rate,term)-1);const monthly=pi+tax+insurance+hoa;const totalInterest=pi*term-loan;const totalCost=monthly*term+down;document.getElementById('results').classList.remove('hidden');document.getElementById('monthly').textContent='$'+monthly.toFixed(2);document.getElementById('pi').textContent='$'+pi.toFixed(2);document.getElementById('tax-mo').textContent='$'+tax.toFixed(2);document.getElementById('ins-mo').textContent='$'+insurance.toFixed(2);document.getElementById('hoa-mo').textContent='$'+hoa.toFixed(2);document.getElementById('loan-amount').textContent='$'+loan.toLocaleString();document.getElementById('total-interest').textContent='$'+Math.round(totalInterest).toLocaleString();document.getElementById('total-cost').textContent='$'+Math.round(totalCost).toLocaleString();const payoff=new Date();payoff.setMonth(payoff.getMonth()+term);document.getElementById('payoff').textContent=payoff.toLocaleDateString('en-US',{month:'long',year:'numeric'});document.getElementById('breakdown').textContent='Principal & Interest: $'+pi.toFixed(2)+' | Tax: $'+tax.toFixed(2)+' | Insurance: $'+insurance.toFixed(2)+(hoa>0?' | HOA: $'+hoa.toFixed(2):'');document.getElementById('results').scrollIntoView({behavior:'smooth'});});</script>
+</body></html>
