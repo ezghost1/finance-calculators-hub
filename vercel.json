@@ -1,15 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/compound-interest", "destination": "/index-old.html" },
-    { "source": "/roi-calculator", "destination": "/roi-calculator.html" },
-    { "source": "/savings-goal", "destination": "/savings-goal.html" },
-    { "source": "/inflation", "destination": "/inflation.html" },
-    { "source": "/loan-calculator", "destination": "/loan-calculator.html" },
-    { "source": "/retirement-calculator", "destination": "/retirement-calculator.html" },
-    { "source": "/investment-tips", "destination": "/investment-tips.html" },
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/terms", "destination": "/terms.html" },
-    { "source": "/contact", "destination": "/contact.html" }
-  ],
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "cleanUrls": true
 }
