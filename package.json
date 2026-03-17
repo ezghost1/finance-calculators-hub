@@ -1,0 +1,12 @@
+{
+  "name": "finance-calculators-hub",
+  "version": "1.0.0",
+  "description": "Free financial calculators for smart investors",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["finance", "calculator", "compound interest", "investment", "ROI"],
+  "author": "Finance Calculators Hub",
+  "license": "MIT"
+}
