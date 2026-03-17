@@ -1,5 +1,6 @@
 {
   "rewrites": [
     { "source": "/compound-interest", "destination": "/index.html" }
-  ]
+  ],
+  "outputDirectory": "."
 }
