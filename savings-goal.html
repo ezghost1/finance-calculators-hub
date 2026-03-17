@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Goal Calculator | Reach Your Financial Goals</title>
+    <meta name="description" content="Free savings goal calculator. Plan how much to save monthly to reach your financial goals. Calculate time to reach your target.">
+    <meta name="keywords" content="savings goal calculator, savings planner, financial goal calculator, how much to save, savings target">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/savings-goal">
+    
+    <meta property="og:title" content="Savings Goal Calculator | Reach Your Financial Goals">
+    <meta property="og:description" content="Free savings goal calculator. Plan how much to save monthly.">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .number-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center">Savings Goal Calculator</h1>
+            <p class="text-center mt-2 text-purple-100 text-lg">Plan your path to financial goals</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Navigation -->
+        <nav class="mb-8">
+            <div class="flex flex-wrap justify-center gap-2">
+                <a href="/" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Compound Interest</a>
+                <a href="/roi-calculator" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">ROI Calculator</a>
+                <a href="/savings-goal" class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Savings Goal</a>
+                <a href="/inflation" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Inflation</a>
+            </div>
+        </nav>
+
+        <!-- Calculator -->
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">How much do you need to save?</h2>
+            <form id="calculator-form" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Savings Goal ($)</label>
+                    <input type="number" id="goal" placeholder="50000" min="0" step="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Current Savings ($)</label>
+                    <input type="number" id="current" placeholder="5000" min="0" step="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Interest Rate (% APY)</label>
+                    <input type="number" id="rate" placeholder="4.5" min="0" max="100" step="0.1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <p class="text-sm text-gray-500 mt-1">Average high-yield savings account rate</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Time Frame (years)</label>
+                        <input type="number" id="years" placeholder="10" min="1" max="50" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">OR Monthly Savings ($)</label>
+                        <input type="number" id="monthly" placeholder="500" min="0" step="50" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500">Fill in either time frame or monthly savings - the calculator will compute the other</p>
+
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-4 px-6 rounded-lg hover:opacity-90 transition transform hover:scale-[1.02] shadow-lg">
+                    Calculate
+                </button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="hidden">
+            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Monthly Savings Needed</p>
+                    <p id="monthly-needed" class="text-3xl font-bold number-highlight">$0</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Time to Goal</p>
+                    <p id="time-needed" class="text-3xl font-bold text-green-600">0 years</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Interest Earned</p>
+                    <p id="interest-earned" class="text-3xl font-bold text-blue-600">$0</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Your Savings Journey</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="py-3 px-4 text-gray-600">Year</th>
+                                <th class="py-3 px-4 text-gray-600">Start Balance</th>
+                                <th class="py-3 px-4 text-gray-600">Deposits</th>
+                                <th class="py-3 px-4 text-gray-600">Interest</th>
+                                <th class="py-3 px-4 text-gray-600">End Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yearly-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <canvas id="savings-chart" height="300"></canvas>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <section class="mt-12 prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Reach Your Savings Goals</h2>
+            
+            <p class="text-gray-600 mb-4">
+                Setting clear savings goals is the foundation of financial success. Whether you're saving for an emergency fund, a down payment on a house, or retirement, having a plan makes all the difference.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">The Power of Goal-Based Saving</h3>
+            
+            <p class="text-gray-600 mb-4">
+                Research shows that people who set specific savings goals are more likely to achieve them. A vague goal like "save more money" is less effective than "save $50,000 for a house down payment in 5 years."
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">How This Calculator Works</h3>
+            
+            <p class="text-gray-600 mb-4">
+                This calculator helps you work backwards from your goal. Enter your target amount, current savings, and either your time frame or monthly contribution. The calculator shows you:
+            </p>
+            
+            <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                <li>Exactly how much to save each month to hit your goal</li>
+                <li>How long it will take at your current savings rate</li>
+                <li>How interest accelerates your progress</li>
+                <li>A year-by-year breakdown of your journey</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Tips for Reaching Your Goals Faster</h3>
+            
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 my-6">
+                <p class="text-green-800">
+                    💡 <strong>Automate your savings:</strong> Set up automatic transfers on payday. You won't miss money you never see.
+                </p>
+            </div>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+                <p class="text-blue-800">
+                    💡 <strong>Use high-yield accounts:</strong> Online savings accounts offer 4-5% APY vs. 0.01% at traditional banks. That's $400+ per year on $10,000.
+                </p>
+            </div>
+            
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 my-6">
+                <p class="text-purple-800">
+                    💡 <strong>Start small, increase gradually:</strong> Save what you can now, then increase by 1% each month. Small changes compound.
+                </p>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Common Savings Goals</h3>
+            
+            <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                <li><strong>Emergency Fund:</strong> 3-6 months of expenses</li>
+                <li><strong>House Down Payment:</strong> 10-20% of home price</li>
+                <li><strong>Vacation Fund:</strong> Varies by destination</li>
+                <li><strong>Wedding Fund:</strong> Average $20,000-$30,000</li>
+                <li><strong>Car Replacement:</strong> Every 5-10 years</li>
+                <li><strong>Retirement:</strong> 10-15% of income annually</li>
+            </ul>
+        </section>
+
+        <!-- Related -->
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Related Calculators</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="/" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Compound Interest</h3>
+                    <p class="text-gray-500 text-sm">See investment growth over time</p>
+                </a>
+                <a href="/roi-calculator" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">ROI Calculator</h3>
+                    <p class="text-gray-500 text-sm">Calculate return on investment</p>
+                </a>
+                <a href="/inflation" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Inflation Calculator</h3>
+                    <p class="text-gray-500 text-sm">See real purchasing power</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">© 2024 Finance Calculators Hub. Free tools for smart investors.</p>
+            <p class="text-sm text-gray-500">
+                <a href="/privacy" class="hover:text-white">Privacy Policy</a> • 
+                <a href="/terms" class="hover:text-white">Terms of Use</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let savingsChart = null;
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function calculateMonthlyNeeded(goal, current, rate, years) {
+            if (years <= 0) return 0;
+            const r = rate / 100 / 12;
+            const n = years * 12;
+            if (r === 0) return (goal - current) / n;
+            const fvCurrent = current * Math.pow(1 + r, n);
+            const pvGoal = goal - fvCurrent;
+            if (pvGoal <= 0) return 0;
+            return pvGoal / ((Math.pow(1 + r, n) - 1) / r);
+        }
+
+        function calculateYearsNeeded(goal, current, rate, monthly) {
+            if (monthly <= 0) {
+                if (current >= goal) return 0;
+                return Infinity;
+            }
+            const r = rate / 100 / 12;
+            let months = 0;
+            let balance = current;
+            while (balance < goal && months < 1200) {
+                balance = balance * (1 + r) + monthly;
+                months++;
+            }
+            return months / 12;
+        }
+
+        function generateYearlyData(goal, current, rate, monthly, years) {
+            const r = rate / 100 / 12;
+            const data = [];
+            let balance = current;
+            let totalDeposits = current;
+            
+            for (let year = 1; year <= years; year++) {
+                const startBalance = balance;
+                let yearDeposits = 0;
+                let yearInterest = 0;
+                
+                for (let month = 0; month < 12; month++) {
+                    const interest = balance * r;
+                    yearInterest += interest;
+                    balance = balance + interest + monthly;
+                    yearDeposits += monthly;
+                    totalDeposits += monthly;
+                }
+                
+                data.push({
+                    year,
+                    startBalance,
+                    deposits: yearDeposits,
+                    interest: yearInterest,
+                    endBalance: balance
+                });
+            }
+            
+            return { data, totalDeposits, finalBalance: balance };
+        }
+
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const goal = parseFloat(document.getElementById('goal').value) || 0;
+            const current = parseFloat(document.getElementById('current').value) || 0;
+            const rate = parseFloat(document.getElementById('rate').value) || 0;
+            let years = parseFloat(document.getElementById('years').value) || null;
+            let monthly = parseFloat(document.getElementById('monthly').value) || null;
+            
+            // Calculate missing value
+            if (years === null && monthly === null) {
+                years = 5; // Default
+            }
+            
+            if (monthly === null || monthly === 0) {
+                monthly = calculateMonthlyNeeded(goal, current, rate, years);
+            } else if (years === null || years === 0) {
+                years = calculateYearsNeeded(goal, current, rate, monthly);
+            }
+            
+            if (!isFinite(years) || years > 50) years = 50;
+            years = Math.ceil(years);
+            monthly = Math.max(0, monthly);
+            
+            const { data, totalDeposits, finalBalance } = generateYearlyData(goal, current, rate, monthly, years);
+            const interestEarned = finalBalance - totalDeposits;
+            
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('monthly-needed').textContent = formatCurrency(monthly);
+            document.getElementById('time-needed').textContent = years + ' years';
+            document.getElementById('interest-earned').textContent = formatCurrency(interestEarned);
+            
+            // Yearly table
+            const tableBody = document.getElementById('yearly-table');
+            tableBody.innerHTML = data.map(row => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4 font-medium">${row.year}</td>
+                    <td class="py-3 px-4">${formatCurrency(row.startBalance)}</td>
+                    <td class="py-3 px-4">${formatCurrency(row.deposits)}</td>
+                    <td class="py-3 px-4 text-green-600">${formatCurrency(row.interest)}</td>
+                    <td class="py-3 px-4 font-semibold">${formatCurrency(row.endBalance)}</td>
+                </tr>
+            `).join('');
+            
+            // Chart
+            const ctx = document.getElementById('savings-chart').getContext('2d');
+            if (savingsChart) savingsChart.destroy();
+            
+            savingsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => 'Year ' + d.year),
+                    datasets: [{
+                        label: 'Balance',
+                        data: data.map(d => d.endBalance),
+                        borderColor: '#764ba2',
+                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Goal',
+                        data: data.map(() => goal),
+                        borderColor: '#10b981',
+                        borderDash: [5, 5],
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: v => '$' + v.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

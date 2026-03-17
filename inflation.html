@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflation Calculator | Real Value of Money Over Time</title>
+    <meta name="description" content="Free inflation calculator. See how inflation affects your money's purchasing power. Calculate real returns and plan for the future.">
+    <meta name="keywords" content="inflation calculator, purchasing power, real value of money, inflation rate, CPI calculator">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/inflation">
+    
+    <meta property="og:title" content="Inflation Calculator | Real Value of Money Over Time">
+    <meta property="og:description" content="Free inflation calculator. See how inflation affects your money.">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .number-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center">Inflation Calculator</h1>
+            <p class="text-center mt-2 text-purple-100 text-lg">See the real value of your money</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Navigation -->
+        <nav class="mb-8">
+            <div class="flex flex-wrap justify-center gap-2">
+                <a href="/" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Compound Interest</a>
+                <a href="/roi-calculator" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">ROI Calculator</a>
+                <a href="/savings-goal" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Savings Goal</a>
+                <a href="/inflation" class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Inflation</a>
+            </div>
+        </nav>
+
+        <!-- Calculator -->
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+            <form id="calculator-form" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Amount ($)</label>
+                    <input type="number" id="amount" placeholder="10000" min="0" step="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">From Year</label>
+                        <input type="number" id="fromYear" placeholder="2020" min="1900" max="2100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">To Year</label>
+                        <input type="number" id="toYear" placeholder="2024" min="1900" max="2100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Inflation Rate (%)</label>
+                    <input type="number" id="rate" placeholder="3.5" min="0" max="100" step="0.1" value="3.5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    <p class="text-sm text-gray-500 mt-1">Historical average US inflation: ~3.5%</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="mode" value="future" checked class="mr-2"> 
+                        <span>Future Value (erosion)</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="mode" value="past" class="mr-2">
+                        <span>Past Value (what was it worth?)</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-4 px-6 rounded-lg hover:opacity-90 transition transform hover:scale-[1.02] shadow-lg">
+                    Calculate
+                </button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="hidden">
+            <div class="grid md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Original Amount</p>
+                    <p id="original" class="text-3xl font-bold text-gray-800">$0</p>
+                    <p id="originalYear" class="text-sm text-gray-500"></p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Equivalent Value</p>
+                    <p id="equivalent" class="text-3xl font-bold number-highlight">$0</p>
+                    <p id="equivalentYear" class="text-sm text-gray-500"></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <p id="summary" class="text-lg text-gray-700"></p>
+                <div id="purchasing-power" class="mt-4 pt-4 border-t">
+                    <h3 class="font-semibold text-gray-800 mb-2">What this means:</h3>
+                    <p class="text-gray-600"></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Purchasing Power Over Time</h2>
+                <canvas id="inflation-chart" height="300"></canvas>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Year-by-Year Breakdown</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="py-3 px-4 text-gray-600">Year</th>
+                                <th class="py-3 px-4 text-gray-600">Inflation</th>
+                                <th class="py-3 px-4 text-gray-600">Cumulative</th>
+                                <th class="py-3 px-4 text-gray-600">Equivalent Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yearly-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <section class="mt-12 prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Understanding Inflation</h2>
+            
+            <p class="text-gray-600 mb-4">
+                Inflation is the rate at which the general level of prices for goods and services rises, eroding the purchasing power of money. A dollar today won't buy the same amount of goods in 10 years.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Why Inflation Matters for Investors</h3>
+            
+            <p class="text-gray-600 mb-4">
+                If your investments return 7% annually but inflation is 3%, your real return is only 4%. This is why it's crucial to:
+            </p>
+            
+            <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                <li>Invest in assets that outpace inflation</li>
+                <li>Consider inflation-protected securities</li>
+                <li>Factor inflation into retirement planning</li>
+                <li>Understand "real" vs "nominal" returns</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Historical US Inflation Rates</h3>
+            
+            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <table class="w-full text-sm">
+                    <tr class="border-b"><td class="py-2 font-medium">2023</td><td>4.1%</td></tr>
+                    <tr class="border-b"><td class="py-2 font-medium">2022</td><td>8.0%</td></tr>
+                    <tr class="border-b"><td class="py-2 font-medium">2021</td><td>4.7%</td></tr>
+                    <tr class="border-b"><td class="py-2 font-medium">2020</td><td>1.2%</td></tr>
+                    <tr class="border-b"><td class="py-2 font-medium">2010-2019 Avg</td><td>1.8%</td></tr>
+                    <tr class="border-b"><td class="py-2 font-medium">2000-2009 Avg</td><td>2.5%</tr>
+                    <tr><td class="py-2 font-medium">1990-1999 Avg</td><td>2.9%</td></tr>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">The Rule of 72 and Inflation</h3>
+            
+            <p class="text-gray-600 mb-4">
+                The Rule of 72 also works for inflation. If inflation averages 3%, your money loses half its purchasing power in about 24 years (72 ÷ 3 = 24). This is why long-term planning must account for inflation.
+            </p>
+
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 my-6">
+                <p class="text-red-800">
+                    ⚠️ <strong>Warning:</strong> Keeping money in cash or low-interest accounts during high inflation periods can result in significant loss of purchasing power. Historical example: $100 in 1980 would need $359 in 2024 to have the same purchasing power.
+                </p>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">How to Protect Against Inflation</h3>
+            
+            <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                <li><strong>Stocks:</strong> Historically outpace inflation over long periods</li>
+                <li><strong>Real Estate:</strong> Property values and rents typically rise with inflation</li>
+                <li><strong>TIPS:</strong> Treasury Inflation-Protected Securities adjust for inflation</li>
+                <li><strong>I Bonds:</strong> Government savings bonds with inflation protection</li>
+                <li><strong>Commodities:</strong> Gold and other resources often hold value during inflation</li>
+            </ul>
+        </section>
+
+        <!-- Related -->
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Related Calculators</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="/" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Compound Interest</h3>
+                    <p class="text-gray-500 text-sm">See investment growth over time</p>
+                </a>
+                <a href="/roi-calculator" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">ROI Calculator</h3>
+                    <p class="text-gray-500 text-sm">Calculate return on investment</p>
+                </a>
+                <a href="/savings-goal" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Savings Goal</h3>
+                    <p class="text-gray-500 text-sm">Plan your savings targets</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">© 2024 Finance Calculators Hub. Free tools for smart investors.</p>
+            <p class="text-sm text-gray-500">
+                <a href="/privacy" class="hover:text-white">Privacy Policy</a> • 
+                <a href="/terms" class="hover:text-white">Terms of Use</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let inflationChart = null;
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const fromYear = parseInt(document.getElementById('fromYear').value) || 2020;
+            const toYear = parseInt(document.getElementById('toYear').value) || 2024;
+            const rate = parseFloat(document.getElementById('rate').value) / 100 || 0.035;
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            
+            const years = Math.abs(toYear - fromYear);
+            const direction = toYear > fromYear ? 'future' : 'past';
+            
+            let equivalent, inflationFactor;
+            if (mode === 'future' || direction === 'future') {
+                equivalent = amount * Math.pow(1 + rate, years);
+                inflationFactor = Math.pow(1 + rate, years);
+            } else {
+                equivalent = amount / Math.pow(1 + rate, years);
+                inflationFactor = Math.pow(1 + rate, years);
+            }
+            
+            const lostValue = equivalent - amount;
+            const percentChange = ((equivalent - amount) / amount) * 100;
+            
+            document.getElementById('results').classList.remove('hidden');
+            
+            if (mode === 'future') {
+                document.getElementById('original').textContent = formatCurrency(amount);
+                document.getElementById('originalYear').textContent = fromYear;
+                document.getElementById('equivalent').textContent = formatCurrency(equivalent);
+                document.getElementById('equivalentYear').textContent = `${toYear} (needs this for same purchasing power)`;
+                document.getElementById('summary').textContent = `$${amount.toLocaleString()} in ${fromYear} would need to be $${Math.round(equivalent).toLocaleString()} in ${toYear} to have the same purchasing power. That's a ${percentChange.toFixed(1)}% increase needed.`;
+            } else {
+                document.getElementById('original').textContent = formatCurrency(amount);
+                document.getElementById('originalYear').textContent = toYear;
+                document.getElementById('equivalent').textContent = formatCurrency(equivalent);
+                document.getElementById('equivalentYear').textContent = `${fromYear} (equivalent purchasing power)`;
+                document.getElementById('summary').textContent = `$${amount.toLocaleString()} in ${toYear} had the same purchasing power as $${Math.round(equivalent).toLocaleString()} in ${fromYear}. Inflation reduced purchasing power by ${Math.abs(percentChange).toFixed(1)}%.`;
+            }
+            
+            // Generate yearly data
+            const yearlyData = [];
+            const startYear = Math.min(fromYear, toYear);
+            const endYear = Math.max(fromYear, toYear);
+            let cumulativeInflation = 1;
+            
+            for (let year = startYear; year <= endYear; year++) {
+                const value = amount * cumulativeInflation;
+                yearlyData.push({
+                    year,
+                    cumulativeInflation: (cumulativeInflation - 1) * 100,
+                    value: mode === 'future' ? value : amount / cumulativeInflation
+                });
+                cumulativeInflation *= (1 + rate);
+            }
+            
+            // Yearly table
+            const tableBody = document.getElementById('yearly-table');
+            tableBody.innerHTML = yearlyData.map(row => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4 font-medium">${row.year}</td>
+                    <td class="py-3 px-4">${(rate * 100).toFixed(1)}%</td>
+                    <td class="py-3 px-4">${row.cumulativeInflation.toFixed(1)}%</td>
+                    <td class="py-3 px-4">${formatCurrency(row.value)}</td>
+                </tr>
+            `).join('');
+            
+            // Chart
+            const ctx = document.getElementById('inflation-chart').getContext('2d');
+            if (inflationChart) inflationChart.destroy();
+            
+            inflationChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: yearlyData.map(d => d.year),
+                    datasets: [{
+                        label: 'Purchasing Power Equivalent',
+                        data: yearlyData.map(d => d.value),
+                        borderColor: '#764ba2',
+                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Original Amount',
+                        data: yearlyData.map(() => amount),
+                        borderColor: '#9ca3af',
+                        borderDash: [5, 5],
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: v => '$' + v.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

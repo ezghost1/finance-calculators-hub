@@ -1,6 +1,9 @@
 {
   "rewrites": [
-    { "source": "/compound-interest", "destination": "/index.html" }
+    { "source": "/compound-interest", "destination": "/index-old.html" },
+    { "source": "/roi-calculator", "destination": "/roi-calculator.html" },
+    { "source": "/savings-goal", "destination": "/savings-goal.html" },
+    { "source": "/inflation", "destination": "/inflation.html" }
   ],
   "outputDirectory": "."
 }
