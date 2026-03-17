@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator | Free Monthly Payment Calculator</title>
+    <meta name="description" content="Free loan calculator. Calculate monthly payments, total interest, and amortization schedule for any loan. Mortgage, auto, personal loans.">
+    <meta name="keywords" content="loan calculator, mortgage calculator, auto loan calculator, monthly payment calculator, amortization schedule">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/loan-calculator">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .number-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center">Loan Calculator</h1>
+            <p class="text-center mt-2 text-purple-100 text-lg">Calculate monthly payments and total cost</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <nav class="mb-8">
+            <div class="flex flex-wrap justify-center gap-2">
+                <a href="/" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Home</a>
+                <a href="/compound-interest" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Compound Interest</a>
+                <a href="/roi-calculator" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">ROI Calculator</a>
+                <a href="/loan-calculator" class="px-4 py-2 bg-purple-600 text-white rounded-lg shadow">Loan Calculator</a>
+            </div>
+        </nav>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+            <form id="calculator-form" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Loan Amount ($)</label>
+                    <input type="number" id="principal" placeholder="250000" min="0" step="1000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Interest Rate (% APR)</label>
+                        <input type="number" id="rate" placeholder="6.5" min="0" max="50" step="0.1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Loan Term (years)</label>
+                        <input type="number" id="years" placeholder="30" min="1" max="50" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Loan Type</label>
+                    <select id="loanType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white">
+                        <option value="mortgage">Mortgage</option>
+                        <option value="auto">Auto Loan</option>
+                        <option value="personal">Personal Loan</option>
+                        <option value="student">Student Loan</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-4 px-6 rounded-lg hover:opacity-90 transition transform hover:scale-[1.02] shadow-lg">
+                    Calculate Payment
+                </button>
+            </form>
+        </div>
+
+        <div id="results" class="hidden">
+            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Monthly Payment</p>
+                    <p id="monthly-payment" class="text-3xl font-bold number-highlight">$0</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Total Interest</p>
+                    <p id="total-interest" class="text-3xl font-bold text-red-600">$0</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Total Cost</p>
+                    <p id="total-cost" class="text-3xl font-bold text-blue-600">$0</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Payment Breakdown</h2>
+                <div class="space-y-3">
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Principal (Loan Amount)</span>
+                        <span id="summary-principal" class="font-semibold">$0</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Total Interest Paid</span>
+                        <span id="summary-interest" class="font-semibold text-red-600">$0</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Total Payments</span>
+                        <span id="summary-total" class="font-semibold">$0</span>
+                    </div>
+                    <div class="flex justify-between py-2">
+                        <span class="text-gray-600">Number of Payments</span>
+                        <span id="summary-payments" class="font-semibold">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Amortization Schedule (First 12 Months)</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="py-3 px-2 text-gray-600">Month</th>
+                                <th class="py-3 px-2 text-gray-600">Payment</th>
+                                <th class="py-3 px-2 text-gray-600">Principal</th>
+                                <th class="py-3 px-2 text-gray-600">Interest</th>
+                                <th class="py-3 px-2 text-gray-600">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amortization-table"></tbody>
+                    </table>
+                </div>
+                <p class="text-gray-500 text-sm mt-4">* Full schedule available on desktop</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <canvas id="payment-chart" height="300"></canvas>
+            </div>
+        </div>
+
+        <section class="mt-12 prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Understanding Loan Payments</h2>
+            
+            <p class="text-gray-600 mb-4">
+                When you take out a loan, your monthly payment goes toward both the principal (the amount you borrowed) and interest (the cost of borrowing). Understanding this breakdown helps you make better financial decisions.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">How Loan Payments Work</h3>
+            
+            <p class="text-gray-600 mb-4">
+                Each monthly payment is calculated using an amortization formula that ensures your loan is paid off by the end of the term. Early payments go mostly toward interest, while later payments go mostly toward principal.
+            </p>
+
+            <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                <p class="text-purple-800 font-mono text-center text-lg">
+                    M = P × [r(1+r)^n] / [(1+r)^n – 1]
+                </p>
+                <p class="text-purple-600 text-sm text-center mt-2">Where M = monthly payment, P = principal, r = monthly rate, n = total payments</p>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Types of Loans</h3>
+            
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-800">Mortgage Loans</h4>
+                    <p class="text-blue-700 text-sm">Home loans typically 15-30 years. Rates vary by credit score and down payment.</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-800">Auto Loans</h4>
+                    <p class="text-green-700 text-sm">Car loans typically 3-7 years. New cars have lower rates than used cars.</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-yellow-800">Personal Loans</h4>
+                    <p class="text-yellow-700 text-sm">Unsecured loans 1-7 years. Higher rates due to no collateral.</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-red-800">Student Loans</h4>
+                    <p class="text-red-700 text-sm">Federal and private loans for education. Terms vary widely.</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Tips to Save on Interest</h3>
+            
+            <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                <li><strong>Make extra payments:</strong> Even small extra payments toward principal can save thousands</li>
+                <li><strong>Shorter term:</strong> 15-year mortgages have lower rates and much less interest</li>
+                <li><strong>Improve credit score:</strong> Better credit = lower interest rates</li>
+                <li><strong>Shop around:</strong> Get quotes from multiple lenders</li>
+                <li><strong>Consider refinancing:</strong> If rates drop, refinancing can save money</li>
+            </ul>
+
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 my-6">
+                <p class="text-green-800">
+                    💡 <strong>Example:</strong> A $250,000 mortgage at 6.5% for 30 years has a monthly payment of $1,580.17. Total interest paid: $318,861. The same loan at 15 years would have a payment of $2,177.78 but only $141,800 in interest — saving $177,061!
+                </p>
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Related Calculators</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="/compound-interest" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Compound Interest</h3>
+                    <p class="text-gray-500 text-sm">See investment growth over time</p>
+                </a>
+                <a href="/roi-calculator" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">ROI Calculator</h3>
+                    <p class="text-gray-500 text-sm">Calculate return on investment</p>
+                </a>
+                <a href="/savings-goal" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Savings Goal</h3>
+                    <p class="text-gray-500 text-sm">Plan your savings targets</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">© 2024 Finance Calculators Hub. Free tools for smart investors.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let paymentChart = null;
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function calculateLoan(principal, annualRate, years) {
+            const monthlyRate = annualRate / 100 / 12;
+            const numPayments = years * 12;
+            
+            let monthlyPayment;
+            if (monthlyRate === 0) {
+                monthlyPayment = principal / numPayments;
+            } else {
+                monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+            
+            const totalCost = monthlyPayment * numPayments;
+            const totalInterest = totalCost - principal;
+            
+            // Amortization schedule
+            const schedule = [];
+            let balance = principal;
+            
+            for (let month = 1; month <= numPayments; month++) {
+                const interestPayment = balance * monthlyRate;
+                const principalPayment = monthlyPayment - interestPayment;
+                balance -= principalPayment;
+                
+                if (month <= 12) {
+                    schedule.push({
+                        month,
+                        payment: monthlyPayment,
+                        principal: principalPayment,
+                        interest: interestPayment,
+                        balance: Math.max(0, balance)
+                    });
+                }
+            }
+            
+            return {
+                monthlyPayment,
+                totalInterest,
+                totalCost,
+                numPayments,
+                schedule
+            };
+        }
+
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const principal = parseFloat(document.getElementById('principal').value) || 0;
+            const rate = parseFloat(document.getElementById('rate').value) || 0;
+            const years = parseFloat(document.getElementById('years').value) || 30;
+            
+            const result = calculateLoan(principal, rate, years);
+            
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('monthly-payment').textContent = formatCurrency(result.monthlyPayment);
+            document.getElementById('total-interest').textContent = formatCurrency(result.totalInterest);
+            document.getElementById('total-cost').textContent = formatCurrency(result.totalCost);
+            
+            document.getElementById('summary-principal').textContent = formatCurrency(principal);
+            document.getElementById('summary-interest').textContent = formatCurrency(result.totalInterest);
+            document.getElementById('summary-total').textContent = formatCurrency(result.totalCost);
+            document.getElementById('summary-payments').textContent = result.numPayments;
+            
+            // Amortization table
+            const tableBody = document.getElementById('amortization-table');
+            tableBody.innerHTML = result.schedule.map(row => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-2 px-2">${row.month}</td>
+                    <td class="py-2 px-2">${formatCurrency(row.payment)}</td>
+                    <td class="py-2 px-2">${formatCurrency(row.principal)}</td>
+                    <td class="py-2 px-2 text-red-600">${formatCurrency(row.interest)}</td>
+                    <td class="py-2 px-2">${formatCurrency(row.balance)}</td>
+                </tr>
+            `).join('');
+            
+            // Chart
+            const ctx = document.getElementById('payment-chart').getContext('2d');
+            if (paymentChart) paymentChart.destroy();
+            
+            paymentChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Interest'],
+                    datasets: [{
+                        data: [principal, result.totalInterest],
+                        backgroundColor: ['#667eea', '#ef4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + formatCurrency(context.raw);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

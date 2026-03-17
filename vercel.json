@@ -3,7 +3,8 @@
     { "source": "/compound-interest", "destination": "/index-old.html" },
     { "source": "/roi-calculator", "destination": "/roi-calculator.html" },
     { "source": "/savings-goal", "destination": "/savings-goal.html" },
-    { "source": "/inflation", "destination": "/inflation.html" }
+    { "source": "/inflation", "destination": "/inflation.html" },
+    { "source": "/loan-calculator", "destination": "/loan-calculator.html" }
   ],
   "outputDirectory": "."
 }
