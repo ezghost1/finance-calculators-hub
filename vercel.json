@@ -4,7 +4,9 @@
     { "source": "/roi-calculator", "destination": "/roi-calculator.html" },
     { "source": "/savings-goal", "destination": "/savings-goal.html" },
     { "source": "/inflation", "destination": "/inflation.html" },
-    { "source": "/loan-calculator", "destination": "/loan-calculator.html" }
+    { "source": "/loan-calculator", "destination": "/loan-calculator.html" },
+    { "source": "/retirement-calculator", "destination": "/retirement-calculator.html" },
+    { "source": "/investment-tips", "destination": "/investment-tips.html" }
   ],
   "outputDirectory": "."
 }

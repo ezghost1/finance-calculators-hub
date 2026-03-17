@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator | Plan Your Retirement Savings</title>
+    <meta name="description" content="Free retirement calculator. Plan how much you need to save for retirement. Calculate 401k growth, IRA contributions, and retirement income.">
+    <meta name="keywords" content="retirement calculator, 401k calculator, IRA calculator, retirement planning, retirement savings, FIRE calculator">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/retirement-calculator">
+    
+    <meta property="og:title" content="Retirement Calculator | Plan Your Retirement Savings">
+    <meta property="og:description" content="Free retirement calculator. Plan your retirement savings and see if you're on track.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/og-retirement.png">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+        .number-highlight {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center">Retirement Calculator</h1>
+            <p class="text-center mt-2 text-green-100 text-lg">Will you have enough to retire? Find out now.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <nav class="mb-8">
+            <div class="flex flex-wrap justify-center gap-2">
+                <a href="/" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Home</a>
+                <a href="/compound-interest" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Compound Interest</a>
+                <a href="/loan-calculator" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-lg transition text-gray-700">Loan Calculator</a>
+                <a href="/retirement-calculator" class="px-4 py-2 bg-green-600 text-white rounded-lg shadow">Retirement</a>
+            </div>
+        </nav>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-6">Your Retirement Plan</h2>
+            <form id="calculator-form" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Current Age</label>
+                        <input type="number" id="currentAge" placeholder="30" min="18" max="100" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Retirement Age</label>
+                        <input type="number" id="retirementAge" placeholder="65" min="50" max="85" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Current Savings ($)</label>
+                    <input type="number" id="currentSavings" placeholder="50000" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Monthly Contribution ($)</label>
+                    <input type="number" id="monthlyContribution" placeholder="500" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Expected Annual Return (%)</label>
+                    <input type="number" id="returnRate" placeholder="7" min="0" max="20" step="0.1" value="7" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                    <p class="text-sm text-gray-500 mt-1">Historical S&P 500 average: 10% | Conservative: 5-6%</p>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Desired Annual Retirement Income ($)</label>
+                    <input type="number" id="retirementIncome" placeholder="50000" min="0" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+                    <p class="text-sm text-gray-500 mt-1">How much you want to spend per year in retirement</p>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Expected Inflation (%)</label>
+                    <input type="number" id="inflation" placeholder="3" min="0" max="10" step="0.1" value="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-4 px-6 rounded-lg hover:opacity-90 transition shadow-lg">
+                    Calculate My Retirement
+                </button>
+            </form>
+        </div>
+
+        <div id="results" class="hidden">
+            <div class="bg-green-50 border-2 border-green-500 rounded-xl p-6 mb-8">
+                <h3 class="text-xl font-bold text-green-800 mb-2">Your Retirement Outlook</h3>
+                <p id="retirement-summary" class="text-green-700"></p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Total at Retirement</p>
+                    <p id="total-savings" class="text-2xl font-bold number-highlight">$0</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Years in Retirement</p>
+                    <p id="years-retirement" class="text-2xl font-bold text-blue-600">0</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Monthly Income</p>
+                    <p id="monthly-income" class="text-2xl font-bold text-green-600">$0</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Status</p>
+                    <p id="status" class="text-2xl font-bold">-</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Retirement Savings Growth</h2>
+                <canvas id="growth-chart" height="300"></canvas>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Retirement Milestones</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="py-3 px-4 text-gray-600">Age</th>
+                                <th class="py-3 px-4 text-gray-600">Balance</th>
+                                <th class="py-3 px-4 text-gray-600">Contributions</th>
+                                <th class="py-3 px-4 text-gray-600">Interest Earned</th>
+                            </tr>
+                        </thead>
+                        <tbody id="milestone-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-12 prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">How Much Do You Need to Retire?</h2>
+            
+            <p class="text-gray-600 mb-4">
+                The "4% rule" suggests you can withdraw 4% of your retirement savings annually with a high probability of your money lasting 30 years. This means if you want $50,000/year in retirement, you need $1.25 million saved.
+            </p>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+                <p class="text-blue-800">
+                    <strong>Quick Formula:</strong> Annual Income Needed × 25 = Target Savings<br>
+                    Example: $50,000/year × 25 = $1,250,000 needed
+                </p>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">The Power of Starting Early</h3>
+            
+            <p class="text-gray-600 mb-4">
+                Starting at age 25 instead of 35 can mean retiring with <strong>twice as much money</strong>, even with the same contributions. Time is your greatest ally in retirement planning.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-gray-800">Starting at 25:</h4>
+                    <p class="text-gray-600">$500/month for 40 years at 7% = <strong class="text-green-600">$1.3 million</strong></p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-gray-800">Starting at 35:</h4>
+                    <p class="text-gray-600">$500/month for 30 years at 7% = <strong class="text-green-600">$609,000</strong></p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Retirement Account Types</h3>
+            
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-800">401(k)</h4>
+                    <p class="text-green-700 text-sm">Employer-sponsored. 2024 limit: $23,000. Often with employer match.</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-800">IRA</h4>
+                    <p class="text-blue-700 text-sm">Individual account. 2024 limit: $7,000. Traditional or Roth options.</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-purple-800">Roth IRA</h4>
+                    <p class="text-purple-700 text-sm">Tax-free growth and withdrawals. Income limits apply.</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-3">Retirement Planning Tips</h3>
+            
+            <ul class="list-disc pl-6 text-gray-600 space-y-2">
+                <li><strong>Get employer match:</strong> This is free money — always contribute enough to get the full match</li>
+                <li><strong>Automate contributions:</strong> Set up automatic deposits so you never forget</li>
+                <li><strong>Increase annually:</strong> Raise your contribution by 1% each year</li>
+                <li><strong>Diversify:</strong> Don't put all your eggs in one basket</li>
+                <li><strong>Keep fees low:</strong> Index funds typically have fees under 0.1%</li>
+                <li><strong>Don't touch it:</strong> Avoid early withdrawals — penalties can be 10% plus taxes</li>
+            </ul>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 my-6">
+                <p class="text-yellow-800">
+                    ⚠️ <strong>Warning:</strong> This calculator provides estimates only. Actual returns vary. Consult a financial advisor for personalized advice. Past performance doesn't guarantee future results.
+                </p>
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Related Calculators</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="/compound-interest" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Compound Interest</h3>
+                    <p class="text-gray-500 text-sm">See investment growth over time</p>
+                </a>
+                <a href="/savings-goal" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Savings Goal</h3>
+                    <p class="text-gray-500 text-sm">Plan your savings targets</p>
+                </a>
+                <a href="/inflation" class="block bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+                    <h3 class="font-semibold text-gray-800">Inflation Calculator</h3>
+                    <p class="text-gray-500 text-sm">See purchasing power over time</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">© 2024 Finance Calculators Hub. Free tools for smart investors.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let growthChart = null;
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function calculateRetirement(currentAge, retirementAge, currentSavings, monthlyContribution, returnRate, inflation) {
+            const years = retirementAge - currentAge;
+            const monthlyRate = returnRate / 100 / 12;
+            
+            let balance = currentSavings;
+            const yearlyData = [];
+            let totalContributions = currentSavings;
+            
+            for (let year = 1; year <= years; year++) {
+                const startBalance = balance;
+                let yearInterest = 0;
+                const yearContributions = monthlyContribution * 12;
+                
+                for (let month = 0; month < 12; month++) {
+                    yearInterest += balance * monthlyRate;
+                    balance = balance * (1 + monthlyRate) + monthlyContribution;
+                }
+                
+                totalContributions += yearContributions;
+                
+                yearlyData.push({
+                    age: currentAge + year,
+                    balance: balance,
+                    contributions: totalContributions,
+                    interest: balance - totalContributions
+                });
+            }
+            
+            return {
+                finalBalance: balance,
+                totalContributions: totalContributions,
+                totalInterest: balance - totalContributions,
+                yearlyData: yearlyData
+            };
+        }
+
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentAge = parseInt(document.getElementById('currentAge').value) || 30;
+            const retirementAge = parseInt(document.getElementById('retirementAge').value) || 65;
+            const currentSavings = parseFloat(document.getElementById('currentSavings').value) || 0;
+            const monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value) || 0;
+            const returnRate = parseFloat(document.getElementById('returnRate').value) || 7;
+            const retirementIncome = parseFloat(document.getElementById('retirementIncome').value) || 50000;
+            const inflation = parseFloat(document.getElementById('inflation').value) || 3;
+            
+            const result = calculateRetirement(currentAge, retirementAge, currentSavings, monthlyContribution, returnRate, inflation);
+            
+            // Calculate withdrawal sustainability
+            const withdrawalRate = 0.04; // 4% rule
+            const sustainableIncome = result.finalBalance * withdrawalRate / 12;
+            const neededSavings = retirementIncome * 25; // 25x rule
+            const isOnTrack = result.finalBalance >= neededSavings;
+            
+            // Years savings will last
+            const yearsInRetirement = 25; // Assume 25-year retirement
+            const monthlyRetirementIncome = retirementIncome / 12;
+            
+            document.getElementById('results').classList.remove('hidden');
+            
+            document.getElementById('total-savings').textContent = formatCurrency(result.finalBalance);
+            document.getElementById('years-retirement').textContent = yearsInRetirement;
+            document.getElementById('monthly-income').textContent = formatCurrency(sustainableIncome);
+            
+            const statusEl = document.getElementById('status');
+            if (isOnTrack) {
+                statusEl.textContent = 'On Track ✓';
+                statusEl.className = 'text-2xl font-bold text-green-600';
+            } else {
+                const gap = neededSavings - result.finalBalance;
+                statusEl.textContent = 'Behind';
+                statusEl.className = 'text-2xl font-bold text-yellow-600';
+            }
+            
+            document.getElementById('retirement-summary').innerHTML = isOnTrack 
+                ? `At age ${retirementAge}, you'll have <strong>${formatCurrency(result.finalBalance)}</strong>. With the 4% rule, you can withdraw about <strong>${formatCurrency(sustainableIncome * 12)}/year</strong> — enough for your target of ${formatCurrency(retirementIncome)}/year.`
+                : `At age ${retirementAge}, you'll have <strong>${formatCurrency(result.finalBalance)}</strong>, but you need <strong>${formatCurrency(neededSavings)}</strong> for ${formatCurrency(retirementIncome)}/year. Increase contributions by ${formatCurrency((neededSavings - result.finalBalance) / ((retirementAge - currentAge) * 12))}/month to catch up.`;
+            
+            // Milestone table (every 5 years)
+            const tableBody = document.getElementById('milestone-table');
+            const milestones = result.yearlyData.filter((_, i) => (i + 1) % 5 === 0 || i === result.yearlyData.length - 1);
+            tableBody.innerHTML = milestones.map(row => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4 font-medium">${row.age}</td>
+                    <td class="py-3 px-4">${formatCurrency(row.balance)}</td>
+                    <td class="py-3 px-4">${formatCurrency(row.contributions)}</td>
+                    <td class="py-3 px-4 text-green-600">${formatCurrency(row.interest)}</td>
+                </tr>
+            `).join('');
+            
+            // Chart
+            const ctx = document.getElementById('growth-chart').getContext('2d');
+            if (growthChart) growthChart.destroy();
+            
+            growthChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: result.yearlyData.map(d => 'Age ' + d.age),
+                    datasets: [{
+                        label: 'Balance',
+                        data: result.yearlyData.map(d => d.balance),
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Contributions',
+                        data: result.yearlyData.map(d => d.contributions),
+                        borderColor: '#9ca3af',
+                        borderDash: [5, 5],
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: v => '$' + (v / 1000) + 'k'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
