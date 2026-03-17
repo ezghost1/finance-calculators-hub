@@ -312,7 +312,7 @@
             { name: 'Investment Growth Calculator', url: '/investment-growth-calculator.html', category: 'Financial' },
             { name: 'Investment Horizon Calculator', url: '/investment-horizon-calculator.html', category: 'Financial' },
             { name: 'Investment Property Calculator', url: '/investment-property-calculator.html', category: 'Financial' },
-            { name: 'Investment Return Calculator', url: '/investment-return-calculator.html', category: 'Financial' },
+            { name: 'Investment Return Calculator', url: '/investment-return-calculator.html', category: 'Financial', keywords: 'roi return on investment' },
             { name: 'IRA Calculator', url: '/ira-calculator.html', category: 'Financial' },
             { name: 'Life Insurance Calculator', url: '/life-insurance-calculator.html', category: 'Financial' },
             { name: 'Loan Affordability Calculator', url: '/loan-affordability-calculator.html', category: 'Financial' },
@@ -349,7 +349,7 @@
             { name: 'Retirement Savings Calculator', url: '/retirement-savings-calculator.html', category: 'Financial' },
             { name: 'Retirement Withdrawal Calculator', url: '/retirement-withdrawal-calculator.html', category: 'Financial' },
             { name: 'Reverse Mortgage Calculator', url: '/reverse-mortgage-calculator.html', category: 'Financial' },
-            { name: 'ROI Calculator', url: '/roi-calculator.html', category: 'Financial' },
+            { name: 'ROI Calculator', url: '/roi-calculator.html', category: 'Financial', keywords: 'return on investment' },
             { name: 'Rule of 72 Calculator', url: '/rule-of-72-calculator.html', category: 'Financial' },
             { name: 'Salary Calculator', url: '/salary-calculator.html', category: 'Financial' },
             { name: 'Salary Converter', url: '/salary-converter.html', category: 'Financial' },
@@ -391,7 +391,8 @@
             
             const matches = calculators.filter(c => 
                 c.name.toLowerCase().includes(q) || 
-                c.category.toLowerCase().includes(q)
+                c.category.toLowerCase().includes(q) ||
+                (c.keywords && c.keywords.toLowerCase().includes(q))
             );
             
             if (matches.length === 0) {
@@ -400,15 +401,15 @@
                 return;
             }
             
-            resultsContainer.innerHTML = matches.slice(0, 10).map(c => `
+            resultsContainer.innerHTML = matches.slice(0, 20).map(c => `
                 <a href="${c.url}" class="flex items-center justify-between p-3 hover:bg-purple-50 transition border-b border-gray-100 last:border-0">
                     <span class="font-medium text-gray-800">${c.name}</span>
                     <span class="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">${c.category}</span>
                 </a>
             `).join('');
             
-            if (matches.length > 10) {
-                resultsContainer.innerHTML += `<div class="p-2 text-center text-sm text-gray-500">+${matches.length - 10} more results</div>`;
+            if (matches.length > 20) {
+                resultsContainer.innerHTML += `<div class="p-2 text-center text-sm text-gray-500">+${matches.length - 20} more results</div>`;
             }
             
             resultsContainer.classList.remove('hidden');
