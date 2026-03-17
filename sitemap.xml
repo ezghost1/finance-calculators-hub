@@ -132,4 +132,13 @@
 <url><loc>https://finance-hub-lilac-psi.vercel.app/weight-loss-calculator</loc><priority>0.7</priority></url>
 <url><loc>https://finance-hub-lilac-psi.vercel.app/wrap-calculator</loc><priority>0.8</priority></url>
 <url><loc>https://finance-hub-lilac-psi.vercel.app/zero-interest-loan-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/coffee-cost-calculator</loc><priority>0.7</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/debt-ratio-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/income-tax-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/investment-fee-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/pizza-cost-calculator</loc><priority>0.7</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/salary-converter</loc><priority>0.8</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/time-calculator</loc><priority>0.7</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/tip-split-calculator</loc><priority>0.7</priority></url>
+<url><loc>https://finance-hub-lilac-psi.vercel.app/wind-chill-calculator</loc><priority>0.7</priority></url>
 </urlset>
