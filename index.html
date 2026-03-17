@@ -29,9 +29,9 @@
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Free Online Calculators</h1>
             <p class="text-xl text-purple-100 mb-6">Financial, Health, Math & Everyday Tools</p>
             <p class="text-purple-200 mb-6">No signup • No ads • No tracking</p>
-            <div class="max-w-xl mx-auto">
-                <input type="text" id="search" placeholder="Search calculators... (press / to focus)" class="w-full px-6 py-4 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300" onkeyup="filterCalculators(this.value)">
-                <p id="search-results" class="text-purple-200 mt-2 text-sm hidden"></p>
+            <div class="max-w-xl mx-auto relative">
+                <input type="text" id="search" placeholder="Search 45+ calculators... (press /)" class="w-full px-6 py-4 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300" autocomplete="off">
+                <div id="search-results" class="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-xl max-h-80 overflow-y-auto hidden z-50"></div>
             </div>
         </div>
     </section>
@@ -163,78 +163,106 @@
     </footer>
 
     <script>
-        function filterCalculators(q) {
-            const sections = ['financial', 'debt', 'health', 'math', 'everyday'];
-            let totalVisible = 0;
-            let firstVisibleSection = null;
+        // All calculators data
+        const calculators = [
+            { name: 'Compound Interest', url: '/compound-interest', category: 'Financial' },
+            { name: 'ROI Calculator', url: '/roi-calculator', category: 'Financial' },
+            { name: 'Mortgage Calculator', url: '/mortgage-calculator', category: 'Financial' },
+            { name: 'Auto Loan Calculator', url: '/auto-loan-calculator', category: 'Financial' },
+            { name: 'Credit Card Payoff', url: '/credit-card-payoff', category: 'Debt' },
+            { name: 'Savings Goal', url: '/savings-goal', category: 'Financial' },
+            { name: 'Emergency Fund', url: '/emergency-fund', category: 'Financial' },
+            { name: 'Retirement Calculator', url: '/retirement-calculator', category: 'Financial' },
+            { name: '401k Calculator', url: '/401k-calculator', category: 'Financial' },
+            { name: 'IRA Calculator', url: '/ira-calculator', category: 'Financial' },
+            { name: 'Inflation Calculator', url: '/inflation', category: 'Financial' },
+            { name: 'CD Calculator', url: '/cd-calculator', category: 'Financial' },
+            { name: 'Net Worth Calculator', url: '/net-worth-calculator', category: 'Financial' },
+            { name: 'Budget Calculator', url: '/budget-calculator', category: 'Financial' },
+            { name: 'Salary Calculator', url: '/salary-calculator', category: 'Financial' },
+            { name: 'Hourly to Salary', url: '/hourly-to-salary', category: 'Financial' },
+            { name: 'Affordability Calculator', url: '/affordability-calculator', category: 'Financial' },
+            { name: 'Loan Calculator', url: '/loan-calculator', category: 'Financial' },
+            { name: 'Tax Calculator', url: '/tax-calculator', category: 'Financial' },
+            { name: 'Interest Rate Calculator', url: '/interest-rate-calculator', category: 'Financial' },
+            { name: 'Dividend Calculator', url: '/dividend-calculator', category: 'Financial' },
+            { name: 'Investment Return', url: '/investment-return-calculator', category: 'Financial' },
+            { name: 'Amortization Schedule', url: '/amortization-schedule', category: 'Financial' },
+            { name: 'Refinance Calculator', url: '/refinance-calculator', category: 'Financial' },
+            { name: 'APY Calculator', url: '/apy-calculator', category: 'Financial' },
+            { name: 'APR Calculator', url: '/apr-calculator', category: 'Financial' },
+            { name: 'Break Even Calculator', url: '/break-even-calculator', category: 'Financial' },
+            { name: 'Debt Snowball', url: '/debt-snowball-calculator', category: 'Debt' },
+            { name: 'Credit Score Estimator', url: '/credit-score-calculator', category: 'Debt' },
+            { name: 'Debt Ratio Calculator', url: '/debt-ratio-calculator', category: 'Debt' },
+            { name: 'BMI Calculator', url: '/bmi-calculator', category: 'Health' },
+            { name: 'Calorie Calculator', url: '/calorie-calculator', category: 'Health' },
+            { name: 'Percentage Calculator', url: '/percentage-calculator', category: 'Math' },
+            { name: 'Scientific Calculator', url: '/scientific-calculator', category: 'Math' },
+            { name: 'Unit Converter', url: '/unit-converter', category: 'Math' },
+            { name: 'Age Calculator', url: '/age-calculator', category: 'Math' },
+            { name: 'Date Calculator', url: '/date-calculator', category: 'Math' },
+            { name: 'Time Zone Converter', url: '/time-zone-converter', category: 'Math' },
+            { name: 'Tip Calculator', url: '/tip-calculator', category: 'Everyday' },
+            { name: 'Discount Calculator', url: '/discount-calculator', category: 'Everyday' },
+            { name: 'Split Bill Calculator', url: '/split-bill-calculator', category: 'Everyday' },
+            { name: 'How to Save Money', url: '/how-to-save-money', category: 'Guide' },
+            { name: 'Best Investment Apps', url: '/best-investment-apps', category: 'Guide' },
+            { name: 'Investment Tips', url: '/investment-tips', category: 'Guide' }
+        ];
+        
+        const searchInput = document.getElementById('search');
+        const resultsContainer = document.getElementById('search-results');
+        
+        searchInput.addEventListener('input', function(e) {
+            const q = e.target.value.trim().toLowerCase();
             
-            sections.forEach(s => {
-                const section = document.getElementById(s);
-                const cards = section.querySelectorAll('a');
-                let visibleInSection = 0;
-                
-                cards.forEach(c => {
-                    const match = c.textContent.toLowerCase().includes(q.toLowerCase());
-                    c.style.display = match || !q ? '' : 'none';
-                    if (match || !q) visibleInSection++;
-                });
-                
-                // Hide empty sections when searching
-                const sectionParent = section.closest('section');
-                if (q && visibleInSection === 0) {
-                    sectionParent.style.display = 'none';
-                } else {
-                    sectionParent.style.display = '';
-                    if (!firstVisibleSection && visibleInSection > 0) {
-                        firstVisibleSection = sectionParent;
-                    }
-                }
-                
-                totalVisible += visibleInSection;
-            });
-            
-            // Update count
-            const countEl = document.getElementById('total-count');
-            if (countEl) {
-                countEl.textContent = totalVisible + '+';
+            if (!q) {
+                resultsContainer.classList.add('hidden');
+                return;
             }
             
-            // Show/hide results message
-            const resultsEl = document.getElementById('search-results');
-            if (q) {
-                if (totalVisible > 0) {
-                    resultsEl.textContent = `Found ${totalVisible} calculator${totalVisible === 1 ? '' : 's'} matching "${q}"`;
-                    resultsEl.className = 'text-purple-200 mt-2 text-sm';
-                } else {
-                    resultsEl.textContent = `No calculators found for "${q}". Try a different search.`;
-                    resultsEl.className = 'text-red-300 mt-2 text-sm';
-                }
-            } else {
-                resultsEl.textContent = '';
-                resultsEl.className = 'hidden';
+            const matches = calculators.filter(c => 
+                c.name.toLowerCase().includes(q) || 
+                c.category.toLowerCase().includes(q)
+            );
+            
+            if (matches.length === 0) {
+                resultsContainer.innerHTML = '<div class="p-4 text-gray-500 text-center">No calculators found</div>';
+                resultsContainer.classList.remove('hidden');
+                return;
             }
             
-            // Scroll to first visible section
-            if (q && firstVisibleSection) {
-                setTimeout(() => {
-                    firstVisibleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
+            resultsContainer.innerHTML = matches.slice(0, 8).map(c => `
+                <a href="${c.url}" class="flex items-center justify-between p-3 hover:bg-purple-50 transition border-b border-gray-100 last:border-0">
+                    <span class="font-medium text-gray-800">${c.name}</span>
+                    <span class="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">${c.category}</span>
+                </a>
+            `).join('');
+            
+            if (matches.length > 8) {
+                resultsContainer.innerHTML += `<div class="p-2 text-center text-sm text-gray-500">+${matches.length - 8} more results</div>`;
             }
-        }
+            
+            resultsContainer.classList.remove('hidden');
+        });
+        
+        // Close on click outside
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+                resultsContainer.classList.add('hidden');
+            }
+        });
         
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
                 e.preventDefault();
-                document.getElementById('search').focus();
+                searchInput.focus();
             }
             if (e.key === 'Escape') {
-                const search = document.getElementById('search');
-                if (search.value) {
-                    search.value = '';
-                    filterCalculators('');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
+                resultsContainer.classList.add('hidden');
+                searchInput.blur();
             }
         });
     </script>
