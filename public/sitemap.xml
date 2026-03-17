@@ -55,6 +55,22 @@
   <url><loc>https://finance-hub-lilac-psi.vercel.app/best-investment-apps</loc><priority>0.7</priority></url>
   <url><loc>https://finance-hub-lilac-psi.vercel.app/investment-tips</loc><priority>0.7</priority></url>
   <url><loc>https://finance-hub-lilac-psi.vercel.app/best-free-calculators</loc><priority>0.9</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/gas-mileage-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/salary-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/investment-fee-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/cost-of-living-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/income-tax-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/interest-only-loan-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/currency-converter</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/speed-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/wind-chill-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/time-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/date-duration-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/percent-off-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/tip-split-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/coffee-cost-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/pizza-cost-calculator</loc><priority>0.7</priority></url>
+  <url><loc>https://finance-hub-lilac-psi.vercel.app/restaurant-tip-calculator</loc><priority>0.7</priority></url>
   <url><loc>https://finance-hub-lilac-psi.vercel.app/privacy</loc><priority>0.3</priority></url>
   <url><loc>https://finance-hub-lilac-psi.vercel.app/terms</loc><priority>0.3</priority></url>
   <url><loc>https://finance-hub-lilac-psi.vercel.app/contact</loc><priority>0.3</priority></url>
