@@ -6,7 +6,9 @@
     { "source": "/inflation", "destination": "/inflation.html" },
     { "source": "/loan-calculator", "destination": "/loan-calculator.html" },
     { "source": "/retirement-calculator", "destination": "/retirement-calculator.html" },
-    { "source": "/investment-tips", "destination": "/investment-tips.html" }
+    { "source": "/investment-tips", "destination": "/investment-tips.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" }
   ],
   "outputDirectory": "."
 }
