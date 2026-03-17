@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Calculators Hub | 30+ Free Calculators</title>
-    <meta name="description" content="Free calculators for finance, health, math, and everyday life. 30+ calculators including mortgage, BMI, percentage, and more. No signup required.">
-    <meta name="keywords" content="calculator, financial calculator, BMI calculator, percentage calculator, mortgage calculator, scientific calculator">
+    <title>Finance Calculators Hub | 50+ Free Calculators</title>
+    <meta name="description" content="Free calculators for finance, health, math, and everyday life. 50+ calculators including mortgage, BMI, compound interest, percentage, and more. No signup required.">
+    <meta name="keywords" content="calculator, financial calculator, BMI calculator, mortgage calculator, compound interest, percentage calculator, free calculators">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E19EPYJKRK"></script>
@@ -18,72 +18,180 @@
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="/" class="flex items-center space-x-3">
                 <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"><span class="text-2xl font-bold">$</span></div>
-                <div><div class="text-xl font-bold">Finance Calculators Hub</div><div class="text-xs text-purple-200">30+ Free Calculators</div></div>
+                <div><div class="text-xl font-bold">Finance Calculators Hub</div><div class="text-xs text-purple-200">Free Online Calculators</div></div>
             </a>
         </div>
     </header>
+
     <section class="gradient-bg text-white py-12">
         <div class="container mx-auto px-4 text-center">
+            <div class="mb-4"><span class="bg-white/20 px-4 py-2 rounded-full text-sm">50+ Free Calculators</span></div>
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Free Online Calculators</h1>
-            <p class="text-xl text-purple-100 mb-6">30+ calculators for finance, health, math, and everyday life. No signup required.</p>
-            <div class="max-w-xl mx-auto"><input type="text" id="search" placeholder="Search calculators..." class="w-full px-6 py-4 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300" onkeyup="filterCalculators(this.value)"></div>
+            <p class="text-xl text-purple-100 mb-6">Financial, Health, Math & Everyday Tools</p>
+            <p class="text-purple-200 mb-6">No signup • No ads • No tracking</p>
+            <div class="max-w-xl mx-auto">
+                <input type="text" id="search" placeholder="Search calculators..." class="w-full px-6 py-4 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-300" onkeyup="filterCalculators(this.value)">
+            </div>
         </div>
     </section>
+
     <section class="bg-white py-6 border-b">
-        <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-6 text-gray-500 text-sm">
+        <div class="container mx-auto px-4 flex flex-wrap justify-center items-center gap-8 text-gray-500 text-sm">
             <div class="flex items-center space-x-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><span>100% Free</span></div>
             <div class="flex items-center space-x-2"><svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg><span>No Signup</span></div>
             <div class="flex items-center space-x-2"><svg class="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6z"/></svg><span>Mobile Friendly</span></div>
-            <div class="flex items-center space-x-2"><svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3z" clip-rule="evenodd"/></svg><span>Accurate</span></div>
+            <div class="flex items-center space-x-2"><svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3z" clip-rule="evenodd"/></svg><span>Accurate Formulas</span></div>
         </div>
     </section>
+
     <main class="container mx-auto px-4 py-12 max-w-6xl">
-        <section class="mb-12"><div class="flex items-center justify-between mb-6"><h2 class="text-2xl font-bold text-gray-800">Financial Calculators</h2><span class="text-gray-500" id="fin-count">15 calculators</span></div>
-            <div id="financial" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                <a href="/compound-interest" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Compound Interest</h4></a>
-                <a href="/roi-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">ROI</h4></a>
-                <a href="/mortgage-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Mortgage</h4></a>
-                <a href="/auto-loan-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Auto Loan</h4></a>
-                <a href="/credit-card-payoff" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Credit Card Payoff</h4></a>
-                <a href="/savings-goal" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Savings Goal</h4></a>
-                <a href="/emergency-fund" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Emergency Fund</h4></a>
-                <a href="/retirement-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Retirement</h4></a>
-                <a href="/inflation" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Inflation</h4></a>
-                <a href="/cd-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">CD Calculator</h4></a>
-                <a href="/net-worth-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Net Worth</h4></a>
-                <a href="/budget-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Budget</h4></a>
-                <a href="/salary-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Salary</h4></a>
-                <a href="/affordability-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Affordability</h4></a>
-                <a href="/loan-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Loan</h4></a>
+        
+        <!-- Calculator Count Banner -->
+        <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl shadow-lg p-6 mb-12 text-white text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div><p class="text-4xl font-bold" id="total-count">50+</p><p class="text-purple-200">Total Calculators</p></div>
+                <div><p class="text-4xl font-bold">0</p><p class="text-purple-200">Ads</p></div>
+                <div><p class="text-4xl font-bold">0</p><p class="text-purple-200">Signups</p></div>
+                <div><p class="text-4xl font-bold">100%</p><p class="text-purple-200">Free Forever</p></div>
+            </div>
+        </div>
+
+        <!-- Financial Calculators -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3 text-xl">💰</span>
+                Financial Calculators <span class="text-gray-500 text-lg ml-2">(20)</span>
+            </h2>
+            <div id="financial" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <a href="/compound-interest" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Compound Interest</h4></a>
+                <a href="/roi-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">ROI Calculator</h4></a>
+                <a href="/mortgage-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Mortgage</h4></a>
+                <a href="/auto-loan-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Auto Loan</h4></a>
+                <a href="/credit-card-payoff" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Credit Card Payoff</h4></a>
+                <a href="/savings-goal" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Savings Goal</h4></a>
+                <a href="/emergency-fund" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Emergency Fund</h4></a>
+                <a href="/retirement-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Retirement</h4></a>
+                <a href="/401k-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">401k Calculator</h4></a>
+                <a href="/ira-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">IRA Calculator</h4></a>
+                <a href="/inflation" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Inflation</h4></a>
+                <a href="/cd-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">CD Calculator</h4></a>
+                <a href="/net-worth-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Net Worth</h4></a>
+                <a href="/budget-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Budget</h4></a>
+                <a href="/salary-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Salary</h4></a>
+                <a href="/hourly-to-salary" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Hourly to Salary</h4></a>
+                <a href="/affordability-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Affordability</h4></a>
+                <a href="/loan-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Loan</h4></a>
+                <a href="/tax-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Tax Calculator</h4></a>
+                <a href="/interest-rate-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Interest Rate</h4></a>
             </div>
         </section>
-        <section class="mb-12"><h2 class="text-2xl font-bold text-gray-800 mb-6">Health & Fitness</h2><div id="health" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            <a href="/bmi-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">BMI Calculator</h4></a>
-            <a href="/calorie-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Calories</h4></a>
-        </div></section>
-        <section class="mb-12"><h2 class="text-2xl font-bold text-gray-800 mb-6">Math & Science</h2><div id="math" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            <a href="/percentage-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Percentage</h4></a>
-            <a href="/scientific-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Scientific Calc</h4></a>
-            <a href="/unit-converter" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Unit Converter</h4></a>
-            <a href="/age-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Age Calculator</h4></a>
-            <a href="/date-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Date Calculator</h4></a>
-            <a href="/time-zone-converter" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Time Zone</h4></a>
-        </div></section>
-        <section class="mb-12"><h2 class="text-2xl font-bold text-gray-800 mb-6">Everyday Tools</h2><div id="everyday" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            <a href="/tip-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Tip Calculator</h4></a>
-            <a href="/discount-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Discount</h4></a>
-            <a href="/split-bill-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Split Bill</h4></a>
-            <a href="/tax-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Tax Calculator</h4></a>
-            <a href="/interest-rate-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition text-center"><h4 class="font-semibold text-sm">Interest Rate</h4></a>
-        </div></section>
-        <section class="mb-12"><h2 class="text-2xl font-bold text-gray-800 mb-6">Guides & Resources</h2><div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <a href="/investment-tips" class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">📚 Investment Guide</h3><p class="text-sm opacity-90">Learn investing basics</p></a>
-            <a href="/how-to-save-money" class="bg-gradient-to-r from-green-500 to-teal-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">💰 How to Save Money</h3><p class="text-sm opacity-90">50+ proven tips</p></a>
-            <a href="/best-investment-apps" class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">📱 Best Investment Apps</h3><p class="text-sm opacity-90">Compare platforms</p></a>
-            <a href="/emergency-fund" class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">🆕 Emergency Fund</h3><p class="text-sm opacity-90">Build safety net</p></a>
-        </div></section>
+
+        <!-- Debt & Credit -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3 text-xl">💳</span>
+                Debt & Credit Calculators <span class="text-gray-500 text-lg ml-2">(3)</span>
+            </h2>
+            <div id="debt" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <a href="/credit-card-payoff" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Credit Card Payoff</h4></a>
+                <a href="/debt-snowball-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Debt Snowball</h4></a>
+                <a href="/loan-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Loan Calculator</h4></a>
+            </div>
+        </section>
+
+        <!-- Health & Fitness -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3 text-xl">🏃</span>
+                Health & Fitness Calculators <span class="text-gray-500 text-lg ml-2">(2)</span>
+            </h2>
+            <div id="health" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <a href="/bmi-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">BMI Calculator</h4></a>
+                <a href="/calorie-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Calorie Calculator</h4></a>
+            </div>
+        </section>
+
+        <!-- Math & Science -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 text-xl">🧮</span>
+                Math & Science Calculators <span class="text-gray-500 text-lg ml-2">(6)</span>
+            </h2>
+            <div id="math" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <a href="/percentage-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Percentage</h4></a>
+                <a href="/scientific-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Scientific Calc</h4></a>
+                <a href="/unit-converter" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Unit Converter</h4></a>
+                <a href="/age-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Age Calculator</h4></a>
+                <a href="/date-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Date Calculator</h4></a>
+                <a href="/time-zone-converter" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Time Zone</h4></a>
+            </div>
+        </section>
+
+        <!-- Everyday Tools -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3 text-xl">⚡</span>
+                Everyday Calculators <span class="text-gray-500 text-lg ml-2">(5)</span>
+            </h2>
+            <div id="everyday" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                <a href="/tip-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Tip Calculator</h4></a>
+                <a href="/discount-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Discount</h4></a>
+                <a href="/split-bill-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Split Bill</h4></a>
+                <a href="/how-to-save-money" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">How to Save Money</h4></a>
+                <a href="/best-investment-apps" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Best Investment Apps</h4></a>
+            </div>
+        </section>
+
+        <!-- Guides -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Guides & Resources</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="/investment-tips" class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">📚 Investment Guide</h3><p class="text-sm opacity-90">Learn investing basics</p></a>
+                <a href="/how-to-save-money" class="bg-gradient-to-r from-green-500 to-teal-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">💰 How to Save Money</h3><p class="text-sm opacity-90">50+ proven tips</p></a>
+                <a href="/best-investment-apps" class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">📱 Best Investment Apps</h3><p class="text-sm opacity-90">Compare platforms</p></a>
+                <a href="/emergency-fund" class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl shadow p-6 text-white hover:shadow-lg transition"><h3 class="font-bold text-lg mb-2">🆕 Emergency Fund</h3><p class="text-sm opacity-90">Build safety net</p></a>
+            </div>
+        </section>
+
+        <!-- Why Us -->
+        <section class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl shadow-lg p-8 text-white text-center mb-12">
+            <h2 class="text-2xl font-bold mb-6">Why Choose Us?</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div><p class="text-4xl font-bold mb-2">50+</p><p class="text-purple-200">Free Calculators</p></div>
+                <div><p class="text-4xl font-bold mb-2">0 Ads</p><p class="text-purple-200">Clean Experience</p></div>
+                <div><p class="text-4xl font-bold mb-2">100%</p><p class="text-purple-200">Privacy Focused</p></div>
+            </div>
+        </section>
+
     </main>
-    <footer class="bg-gray-800 text-gray-300 py-8"><div class="container mx-auto px-4 text-center"><p>© 2024 Finance Calculators Hub. 30+ free calculators for everyone.</p></div></footer>
-    <script>function filterCalculators(q){const sections=['financial','health','math','everyday'];let total=0;sections.forEach(s=>{const cards=document.querySelectorAll('#'+s+' a');cards.forEach(c=>{const text=c.textContent.toLowerCase();c.style.display=text.includes(q.toLowerCase())||!q?'':'none';if(c.style.display!=='none')total++;});});document.getElementById('fin-count').textContent=total+' calculators';}</script>
+
+    <footer class="bg-gray-800 text-gray-300 py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-5 gap-8 mb-8">
+                <div><h3 class="text-white font-bold mb-4">Financial (20)</h3><ul class="space-y-1 text-sm"><li><a href="/compound-interest" class="hover:text-white">Compound Interest</a></li><li><a href="/roi-calculator" class="hover:text-white">ROI Calculator</a></li><li><a href="/mortgage-calculator" class="hover:text-white">Mortgage</a></li><li><a href="/auto-loan-calculator" class="hover:text-white">Auto Loan</a></li><li><a href="/401k-calculator" class="hover:text-white">401k Calculator</a></li></ul></div>
+                <div><h3 class="text-white font-bold mb-4">Debt & Credit</h3><ul class="space-y-1 text-sm"><li><a href="/credit-card-payoff" class="hover:text-white">Credit Card Payoff</a></li><li><a href="/debt-snowball-calculator" class="hover:text-white">Debt Snowball</a></li><li><a href="/loan-calculator" class="hover:text-white">Loan Calculator</a></li></ul></div>
+                <div><h3 class="text-white font-bold mb-4">Health</h3><ul class="space-y-1 text-sm"><li><a href="/bmi-calculator" class="hover:text-white">BMI Calculator</a></li><li><a href="/calorie-calculator" class="hover:text-white">Calorie Calculator</a></li></ul></div>
+                <div><h3 class="text-white font-bold mb-4">Math & Science</h3><ul class="space-y-1 text-sm"><li><a href="/percentage-calculator" class="hover:text-white">Percentage</a></li><li><a href="/scientific-calculator" class="hover:text-white">Scientific Calc</a></li><li><a href="/unit-converter" class="hover:text-white">Unit Converter</a></li></ul></div>
+                <div><h3 class="text-white font-bold mb-4">Everyday</h3><ul class="space-y-1 text-sm"><li><a href="/tip-calculator" class="hover:text-white">Tip Calculator</a></li><li><a href="/discount-calculator" class="hover:text-white">Discount</a></li><li><a href="/split-bill-calculator" class="hover:text-white">Split Bill</a></li></ul></div>
+            </div>
+            <div class="text-center text-sm pt-8 border-t border-gray-700"><p>© 2024 Finance Calculators Hub. 50+ free calculators for everyone.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        function filterCalculators(q) {
+            const sections = ['financial', 'debt', 'health', 'math', 'everyday'];
+            let total = 0;
+            sections.forEach(s => {
+                const cards = document.querySelectorAll('#' + s + ' a');
+                cards.forEach(c => {
+                    const text = c.textContent.toLowerCase();
+                    c.style.display = text.includes(q.toLowerCase()) || !q ? '' : 'none';
+                    if (c.style.display !== 'none') total++;
+                });
+            });
+            document.getElementById('total-count').textContent = total + '+';
+        }
+    </script>
 </body>
 </html>
