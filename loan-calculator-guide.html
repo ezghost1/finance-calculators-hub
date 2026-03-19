@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator: Calculate Monthly Payments (2026)</title>
+    <meta name="description" content="Free loan calculator. Calculate monthly payments, total interest, and see the full amortization schedule. Works for auto loans, personal loans, and more.">
+    <meta name="keywords" content="loan calculator, monthly payment calculator, auto loan calculator, personal loan calculator, amortization calculator, loan payment">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/loan-calculator-guide.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.gradient-bg{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <a href="/" class="text-sm text-purple-200 hover:text-white mb-2 block">← Back to All Calculators</a>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Loan Calculator</h1>
+            <p class="text-xl opacity-90">Calculate any loan payment instantly</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-12 px-4">
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Loan Amount ($)</label>
+                    <input type="number" id="loan-amount" class="w-full p-3 border rounded-lg" value="25000">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Interest Rate (%)</label>
+                    <input type="number" id="interest-rate" class="w-full p-3 border rounded-lg" value="8" step="0.1">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Loan Term</label>
+                    <select id="loan-term" class="w-full p-3 border rounded-lg">
+                        <option value="12">1 year</option>
+                        <option value="24">2 years</option>
+                        <option value="36" selected>3 years</option>
+                        <option value="48">4 years</option>
+                        <option value="60">5 years</option>
+                        <option value="72">6 years</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="calculateLoan()" class="w-full bg-blue-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition">
+                Calculate Payment
+            </button>
+            
+            <div id="result" class="mt-8 p-6 bg-green-50 rounded-lg hidden">
+                <p class="text-center text-3xl font-bold text-green-700 mb-2">$<span id="monthly-payment">0</span></p>
+                <p class="text-center text-gray-600">per month</p>
+                <div class="mt-4 pt-4 border-t border-green-200 grid md:grid-cols-2 gap-4">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">Total Interest</p>
+                        <p class="font-bold text-lg" id="total-interest">$0</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500">Total Cost</p>
+                        <p class="font-bold text-lg" id="total-cost">$0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="prose max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">How Loan Payments Work</h2>
+            <p class="text-gray-700 mb-4">Each payment is split between <strong>principal</strong> (the amount you borrowed) and <strong>interest</strong> (the lender's fee). Early payments go mostly to interest; later payments are mostly principal.</p>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Loan Types</h2>
+            <ul class="list-disc pl-6 mb-6 text-gray-700">
+                <li class="mb-2"><strong>Auto loans</strong> - Typically 3-7 years, secured by the vehicle</li>
+                <li class="mb-2"><strong>Personal loans</strong> - Unsecured, typically 1-7 years</li>
+                <li class="mb-2"><strong>Student loans</strong> - Often have flexible repayment options</li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Related Calculators</h2>
+            <ul class="list-disc pl-6 mb-6 text-gray-700">
+                <li class="mb-2"><a href="/auto-loan-calculator.html" class="text-blue-600 hover:underline">Auto Loan Calculator</a> - Specific to car loans</li>
+                <li class="mb-2"><a href="/compare-loans-calculator.html" class="text-blue-600 hover:underline">Compare Loans</a> - Side by side comparison</li>
+                <li class="mb-2"><a href="/loan-payoff-calculator.html" class="text-blue-600 hover:underline">Loan Payoff</a> - See payoff timeline</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center mt-12">
+        <p>© 2026 Finance Calculators Hub. 150+ free calculators for everyone.</p>
+    </footer>
+
+    <script>
+    function calculateLoan() {
+        const amount = parseFloat(document.getElementById('loan-amount').value);
+        const rate = parseFloat(document.getElementById('interest-rate').value) / 100 / 12;
+        const months = parseInt(document.getElementById('loan-term').value);
+        
+        const payment = amount * (rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
+        const totalPaid = payment * months;
+        const totalInterest = totalPaid - amount;
+        
+        document.getElementById('monthly-payment').textContent = payment.toLocaleString('en-US', {maximumFractionDigits: 2});
+        document.getElementById('total-interest').textContent = '$' + totalInterest.toLocaleString('en-US', {maximumFractionDigits: 0});
+        document.getElementById('total-cost').textContent = '$' + totalPaid.toLocaleString('en-US', {maximumFractionDigits: 0});
+        
+        document.getElementById('result').classList.remove('hidden');
+    }
+    </script>
+</body>
+</html>

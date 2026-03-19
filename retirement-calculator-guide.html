@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator: Plan Your Retirement (2026)</title>
+    <meta name="description" content="Free retirement calculator. Find out how much you need to save for retirement. No signup required.">
+    <meta name="keywords" content="retirement calculator, retirement planning, how much to save for retirement, retirement savings calculator, 401k calculator, IRA calculator">
+    <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/retirement-calculator-guide.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.gradient-bg{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="gradient-bg text-white py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <a href="/" class="text-sm text-purple-200 hover:text-white mb-2 block">← Back to All Calculators</a>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Retirement Calculator</h1>
+            <p class="text-xl opacity-90">Plan your financial future</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-12 px-4">
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Current Age</label>
+                    <input type="number" id="current-age" class="w-full p-3 border rounded-lg" value="30">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Retirement Age</label>
+                    <input type="number" id="retire-age" class="w-full p-3 border rounded-lg" value="65">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Current Savings ($)</label>
+                    <input type="number" id="current-savings" class="w-full p-3 border rounded-lg" value="50000">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Monthly Contribution ($)</label>
+                    <input type="number" id="monthly-contrib" class="w-full p-3 border rounded-lg" value="500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Expected Return (%)</label>
+                    <input type="number" id="return-rate" class="w-full p-3 border rounded-lg" value="7" step="0.1">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Desired Annual Income ($)</label>
+                    <input type="number" id="desired-income" class="w-full p-3 border rounded-lg" value="50000">
+                </div>
+            </div>
+            <button onclick="calculateRetirement()" class="w-full bg-blue-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition">
+                Calculate Retirement Savings
+            </button>
+            
+            <div id="result" class="mt-8 p-6 bg-green-50 rounded-lg hidden">
+                <p class="text-center text-3xl font-bold text-green-700 mb-2">$<span id="projected-savings">0</span></p>
+                <p class="text-center text-gray-600 mb-4">Projected savings at retirement</p>
+                <div class="pt-4 border-t border-green-200 text-center">
+                    <p class="text-lg" id="on-track">-</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="prose max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">How Much Do You Need to Retire?</h2>
+            <p class="text-gray-700 mb-4">The common rule of thumb is the <strong>4% rule</strong>: multiply your desired annual income by 25. For $50,000/year, you need $1.25 million saved.</p>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+                <h3 class="font-bold text-blue-900 mb-2">💡 Quick Formula</h3>
+                <p class="text-blue-800"><strong>Annual Desired Income × 25 = Target Nest Egg</strong></p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Related Calculators</h2>
+            <ul class="list-disc pl-6 mb-6 text-gray-700">
+                <li class="mb-2"><a href="/401k-calculator.html" class="text-blue-600 hover:underline">401k Calculator</a> - Maximize your 401k</li>
+                <li class="mb-2"><a href="/ira-calculator.html" class="text-blue-600 hover:underline">IRA Calculator</a> - Traditional vs Roth</li>
+                <li class="mb-2"><a href="/compound-interest.html" class="text-blue-600 hover:underline">Compound Interest</a> - See growth over time</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center mt-12">
+        <p>© 2026 Finance Calculators Hub. 150+ free calculators for everyone.</p>
+    </footer>
+
+    <script>
+    function calculateRetirement() {
+        const currentAge = parseInt(document.getElementById('current-age').value);
+        const retireAge = parseInt(document.getElementById('retire-age').value);
+        const savings = parseFloat(document.getElementById('current-savings').value);
+        const monthly = parseFloat(document.getElementById('monthly-contrib').value);
+        const annualReturn = parseFloat(document.getElementById('return-rate').value) / 100;
+        const desiredIncome = parseFloat(document.getElementById('desired-income').value);
+        
+        const years = retireAge - currentAge;
+        const months = years * 12;
+        const monthlyRate = annualReturn / 12;
+        
+        // Future value of current savings
+        const fvCurrent = savings * Math.pow(1 + monthlyRate, months);
+        
+        // Future value of monthly contributions
+        const fvContrib = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+        
+        const total = fvCurrent + fvContrib;
+        const target = desiredIncome * 25;
+        
+        document.getElementById('projected-savings').textContent = total.toLocaleString('en-US', {maximumFractionDigits: 0});
+        
+        const onTrack = total >= target;
+        const diff = Math.abs(total - target);
+        const el = document.getElementById('on-track');
+        if (onTrack) {
+            el.textContent = '✓ You are on track!';
+            el.className = 'text-lg font-bold text-green-600';
+        } else {
+            el.textContent = '⚠ You need $' + diff.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' more';
+            el.className = 'text-lg font-bold text-orange-600';
+        }
+        
+        document.getElementById('result').classList.remove('hidden');
+    }
+    </script>
+</body>
+</html>
