@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Disallow admin/private pages
+Disallow: /admin/
+Disallow: /api/
+Disallow: /cdn/
+
+# Sitemap
 Sitemap: https://finance-hub-lilac-psi.vercel.app/sitemap.xml
+
+# Crawl-delay (politeness)
+Crawl-delay: 1
