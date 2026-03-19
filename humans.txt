@@ -1,0 +1,18 @@
+# Finance Calculators Hub - Humans.txt
+
+## Site
+Finance Calculators Hub is a free, privacy-focused platform providing 150+ online calculators for finance, health, math, and everyday life.
+
+## Mission
+To make financial tools accessible to everyone, without ads, without signup, completely free.
+
+## Technology
+- Static HTML with Tailwind CSS
+- Vanilla JavaScript
+- Hosted on Vercel
+
+## Contact
+For questions or suggestions, visit our contact page.
+
+## Last Updated
+March 2026

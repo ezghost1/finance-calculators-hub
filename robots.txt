@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Crawl-delay: 1
+
 Sitemap: https://finance-hub-lilac-psi.vercel.app/sitemap.xml
+Sitemap: https://finance-hub-lilac-psi.vercel.app/sitemap-index.xml
+
+# Clean URLs preference
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/$ $1.html [L]

@@ -3,11 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Calculators Hub | 140+ Free Calculators</title>
-    <meta name="description" content="Free calculators for finance, health, math, and everyday life. 140+ calculators including mortgage, BMI, compound interest, percentage, and more. No signup required.">
-    <meta name="keywords" content="calculator, financial calculator, BMI calculator, mortgage calculator, compound interest, percentage calculator, free calculators">
+    <title>Finance Calculators Hub | 150+ Free Online Calculators</title>
+    <meta name="description" content="150+ free online calculators for finance, health, math & everyday life. Mortgage calculator, BMI, compound interest, loan, ROI, retirement & more. No signup • No ads • 100% free.">
+    <meta name="keywords" content="free calculator, online calculator, mortgage calculator, BMI calculator, loan calculator, compound interest calculator, ROI calculator, retirement calculator, financial calculator, health calculator, percentage calculator, amortization calculator, budget calculator, savings calculator, tax calculator">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="canonical" href="https://finance-hub-lilac-psi.vercel.app/">
+    <link rel="alternate" hreflang="en" href="https://finance-hub-lilac-psi.vercel.app/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Finance Calculators Hub | 150+ Free Online Calculators">
+    <meta property="og:description" content="Free calculators for finance, health, math & everyday life. No signup required.">
+    <meta property="og:url" content="https://finance-hub-lilac-psi.vercel.app/">
+    <meta property="og:site_name" content="Finance Calculators Hub">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Finance Calculators Hub | 150+ Free Online Calculators">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Finance Calculators Hub",
+        "url": "https://finance-hub-lilac-psi.vercel.app/",
+        "description": "150+ free online calculators for finance, health, math and everyday life",
+        "keywords": ["calculator", "financial calculator", "mortgage calculator", "BMI calculator", "loan calculator"],
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://finance-hub-lilac-psi.vercel.app/*{search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Finance Calculators Hub",
+        "url": "https://finance-hub-lilac-psi.vercel.app/",
+        "logo": "https://finance-hub-lilac-psi.vercel.app/favicon.svg"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Are these calculators really free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, all 150+ calculators on Finance Calculators Hub are completely free. No signup required, no ads, and no hidden fees."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What types of calculators are available?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We offer calculators for financial (mortgage, loan, investment, retirement), health (BMI, calories, body fat), math (percentage, conversions), and everyday use (tips, budget, splitting bills)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to create an account to use calculators?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No account needed. All calculators work instantly without registration. Your data stays on your device and is never stored."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Are the calculator results accurate?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our calculators use standard formulas and are regularly reviewed for accuracy. However, for important financial decisions, consult a professional."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use these calculators on mobile?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, all calculators are fully responsive and work on smartphones, tablets, and desktop computers."
+                }
+            }
+        ]
+    }
+    </script>
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E19EPYJKRK"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E19EPYJKRK');</script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -92,6 +180,9 @@
                 <a href="/capital-gains-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Capital Gains</h4></a>
                 <a href="/interest-only-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Interest Only</h4></a>
                 <a href="/rule-of-72-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Rule of 72</h4></a>
+            </div>
+            <button onclick="this.parentElement.querySelector('.more-financial').classList.toggle('hidden'); this.classList.toggle('hidden')" class="mt-3 text-green-600 font-semibold hover:underline">Show more ▼</button>
+            <div class="more-financial hidden grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-3">
                 <a href="/loan-comparison-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Loan Comparison</h4></a>
                 <a href="/home-affordability-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Home Affordability</h4></a>
                 <a href="/down-payment-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Down Payment</h4></a>
@@ -166,6 +257,9 @@
                 <a href="/credit-score-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Credit Score</h4></a>
                 <a href="/debt-ratio-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Debt Ratio</h4></a>
                 <a href="/debt-to-income-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Debt to Income</h4></a>
+            </div>
+            <button onclick="this.parentElement.querySelector('.more-debt').classList.toggle('hidden'); this.classList.toggle('hidden')" class="mt-3 text-green-600 font-semibold hover:underline">Show more ▼</button>
+            <div class="more-debt hidden grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-3">
                 <a href="/debt-payoff-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Debt Payoff</h4></a>
                 <a href="/credit-card-minimum-payment-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Min Payment</h4></a>
             </div>
@@ -178,11 +272,19 @@
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 <a href="/bmi-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">BMI Calculator</h4></a>
+                <a href="/bmr-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">BMR Calculator</h4></a>
                 <a href="/calorie-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Calorie Calculator</h4></a>
                 <a href="/body-fat-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Body Fat</h4></a>
                 <a href="/water-intake-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Water Intake</h4></a>
+            </div>
+            <button onclick="this.parentElement.querySelector('.more-health').classList.toggle('hidden'); this.classList.toggle('hidden')" class="mt-3 text-green-600 font-semibold hover:underline">Show more ▼</button>
+            <div class="more-health hidden grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 mt-3">
                 <a href="/weight-loss-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Weight Loss</h4></a>
                 <a href="/sleep-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Sleep Calculator</h4></a>
+                <a href="/ideal-weight-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Ideal Weight</h4></a>
+                <a href="/pregnancy-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Pregnancy</h4></a>
+                <a href="/due-date-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Due Date</h4></a>
+                <a href="/pregnancy-conception-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Conception</h4></a>
             </div>
         </section>
 
@@ -202,6 +304,8 @@
                 <a href="/random-number-generator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Random Number</h4></a>
                 <a href="/speed-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Speed Calculator</h4></a>
                 <a href="/pace-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Pace Calculator</h4></a>
+                <a href="/fraction-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Fraction</h4></a>
+                <a href="/triangle-calculator" class="bg-white rounded-lg shadow p-3 hover:shadow-lg transition"><h4 class="font-semibold text-sm">Triangle</h4></a>
             </div>
         </section>
 
@@ -254,7 +358,12 @@
             { name: 'Auto Loan Calculator', url: '/auto-loan-calculator.html', category: 'Financial' },
             { name: 'Biweekly Payment Calculator', url: '/biweekly-payment-calculator.html', category: 'Financial' },
             { name: 'BMI Calculator', url: '/bmi-calculator.html', category: 'Health' },
+            { name: 'BMR Calculator', url: '/bmr-calculator.html', category: 'Health' },
             { name: 'Body Fat Calculator', url: '/body-fat-calculator.html', category: 'Health' },
+            { name: 'Ideal Weight Calculator', url: '/ideal-weight-calculator.html', category: 'Health' },
+            { name: 'Pregnancy Calculator', url: '/pregnancy-calculator.html', category: 'Health' },
+            { name: 'Due Date Calculator', url: '/due-date-calculator.html', category: 'Health' },
+            { name: 'Pregnancy Conception Calculator', url: '/pregnancy-conception-calculator.html', category: 'Health' },
             { name: 'Break Even Calculator', url: '/break-even-calculator.html', category: 'Financial' },
             { name: 'Budget Calculator', url: '/budget-calculator.html', category: 'Financial' },
             { name: 'Calorie Calculator', url: '/calorie-calculator.html', category: 'Health' },
@@ -335,6 +444,8 @@
             { name: 'Mortgage Qualification Calculator', url: '/mortgage-qualification-calculator.html', category: 'Financial' },
             { name: 'Net Worth Calculator', url: '/net-worth-calculator.html', category: 'Financial' },
             { name: 'Pace Calculator', url: '/pace-calculator.html', category: 'Math' },
+            { name: 'Fraction Calculator', url: '/fraction-calculator.html', category: 'Math' },
+            { name: 'Triangle Calculator', url: '/triangle-calculator.html', category: 'Math' },
             { name: 'Paycheck Calculator', url: '/paycheck-calculator.html', category: 'Financial' },
             { name: 'Percent Off Calculator', url: '/percent-off-calculator.html', category: 'Everyday' },
             { name: 'Percentage Calculator', url: '/percentage-calculator.html', category: 'Math' },
